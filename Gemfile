@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+# Ruby linter
+gem 'rubocop'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'

@@ -1,0 +1,18 @@
+AllCops:
+  Include:
+    - Rakefile
+    - config.ru
+  Exclude:
+    - vendor/**/*
+    - db/**/*
+    - bin/**/*
+    - config/**/*
+
+Style/Documentation:
+  Exclude:
+    - test/**/*
+
+Style/ClassLength:
+  Exclude:
+    - test/**/*
+
