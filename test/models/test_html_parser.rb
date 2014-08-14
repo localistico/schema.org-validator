@@ -1,11 +1,10 @@
-load '../../app/models/nokogiri_parser.rb'
+require '../../app/models/nokogiri_parser.rb'
 
 # Main code
 if __FILE__ == $PROGRAM_NAME
   begin
   parser = HtmlParser.new("../fixtures/webpage_demo.html")
-  puts parser.css("span[itemprop]")
-  # puts parser.inspect
+  puts parser.analyseMicroData
   
   rescue Exception => e
     puts e.message
