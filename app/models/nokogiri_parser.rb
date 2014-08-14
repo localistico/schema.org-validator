@@ -31,7 +31,7 @@ class HtmlParser
     hashresults = {}
 
     # Obtain all the schema main itemscopes
-    css('[itemscope]').select { |item| item['itemprop'].nil? }.each do
+    css('[itemscope]:not([itemprop])').each do
       |itemscope|
       hashresults.merge!(analyse_itemscope_microdata(itemscope))
     end
@@ -42,17 +42,29 @@ class HtmlParser
   # Internal method that inspects the hierarchical structure of a itemscope
   def analyse_itemscope_microdata(itemscope)
     hashresults = {}
+    
+    itemscope.children.each do |child|
+      
+    end
 
     # Analyse subscopes
     subclasses = analyse_subscopes_microdata(itemscope)
 
     # Obtain direct properties of the main itemscope
     directproperties = analyse_dirproperties_microdata(itemscope)
+    
+    # Look for another properties covered by another kind of tags (like <h1>)
+    anotherproperties = analyse_anotproperties_microdata(itemscope)
 
     # Merge filtered results
     hashresults["#{itemscope['itemtype']}"] =
-    subclasses.merge(directproperties)
-    hashresults
+    subclasses.merge(directproperties).merge(anotherproperties)
+    
+    if (!"#{itemscope['itemtype']}".eql?(''))
+      hashresults
+    else
+      hashresults["#{itemscope['itemtype']}"]
+    end
   end
   # Analyse subscopes with mutual recursion
   def analyse_subscopes_microdata(itemscope)
@@ -71,6 +83,26 @@ class HtmlParser
         analyse_propertie_microdata(itemprop)
     end
     directproperties
+  end
+  # Search another properties of the itemscope
+  def analyse_anotproperties_microdata(itemscope)
+    hashmap = {}
+    itemscope.children.select {|child| child['itemscope'].nil? && child['itemprop'].nil? }.each do
+      |child|
+      analyse_itemscope_microdata(child)
+      hashmap.merge!(analyse_itemscope_microdata(child))
+    end
+    hashmap
+  end
+  
+  #Verify if an item is a subscope
+  def is_subscope?(item)
+    !item['itemscope'].nil?
+  end
+  
+  #Verify if an item is a direct property
+  def is_subscope?(item)
+    !item['itemprop'].nil? && !is_subscope?(item)
   end
 
   # Internal method that inspects the values of final properties
