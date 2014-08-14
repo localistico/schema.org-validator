@@ -41,58 +41,45 @@ class HtmlParser
 
   # Internal method that inspects the hierarchical structure of a itemscope
   def analyse_itemscope_microdata(itemscope)
-    hashresults = {}
+    partialresults = {}
     
+    # Get the direct descendents
     itemscope.children.each do |child|
-      
+      # Analyse subscopes
+      if is_subscope?(child)
+        partialresults.merge!(analyse_subscope_microdata(child))
+      else
+        # Obtain direct properties of the main itemscope
+        if is_directproperty?(child)
+          partialresults.merge!(analyse_dirpropertie_microdata(child))
+        else
+          # Look for another properties covered by another kind of tags (like <h1>)
+          partialresults.merge!(analyse_anotpropertie_microdata(child))
+        end
+      end
     end
-
-    # Analyse subscopes
-    subclasses = analyse_subscopes_microdata(itemscope)
-
-    # Obtain direct properties of the main itemscope
-    directproperties = analyse_dirproperties_microdata(itemscope)
     
-    # Look for another properties covered by another kind of tags (like <h1>)
-    anotherproperties = analyse_anotproperties_microdata(itemscope)
-
-    # Merge filtered results
-    hashresults["#{itemscope['itemtype']}"] =
-    subclasses.merge(directproperties).merge(anotherproperties)
-    
+    # Ensure the item is a schema tag
     if (!"#{itemscope['itemtype']}".eql?(''))
+      # Merge filtered results
+      hashresults = {}
+      hashresults["#{itemscope['itemtype']}"] = partialresults
       hashresults
     else
-      hashresults["#{itemscope['itemtype']}"]
+      # If not, data tree doesn't grow
+      partialresults
     end
   end
-  # Analyse subscopes with mutual recursion
-  def analyse_subscopes_microdata(itemscope)
+  # Analyse subscope with mutual recursion
+  def analyse_subscope_microdata(itemprop)
     subclasses = {}
-    itemscope.css('> [itemscope]').each do |itemprop|
-      subclasses[itemprop['itemprop']] = analyse_itemscope_microdata(itemprop)
-    end
+    subclasses[itemprop['itemprop']] = analyse_itemscope_microdata(itemprop)
     subclasses
   end
-  # Obtain direct properties of the main itemscope
-  def analyse_dirproperties_microdata(itemscope)
-    directproperties = {}
-    itemscope.css('> [itemprop]').select { |it| it['itemscope'].nil? }.each do
-      |itemprop|
-      directproperties[itemprop['itemprop']] =
-        analyse_propertie_microdata(itemprop)
-    end
-    directproperties
-  end
+
   # Search another properties of the itemscope
-  def analyse_anotproperties_microdata(itemscope)
-    hashmap = {}
-    itemscope.children.select {|child| child['itemscope'].nil? && child['itemprop'].nil? }.each do
-      |child|
-      analyse_itemscope_microdata(child)
-      hashmap.merge!(analyse_itemscope_microdata(child))
-    end
-    hashmap
+  def analyse_anotpropertie_microdata(child)
+    hashmap = analyse_itemscope_microdata(child)
   end
   
   #Verify if an item is a subscope
@@ -101,12 +88,15 @@ class HtmlParser
   end
   
   #Verify if an item is a direct property
-  def is_subscope?(item)
+  def is_directproperty?(item)
     !item['itemprop'].nil? && !is_subscope?(item)
   end
 
   # Internal method that inspects the values of final properties
-  def analyse_propertie_microdata(itemprop)
+  def analyse_dirpropertie_microdata(itemprop)
+    hash={}
+    hash[itemprop['itemprop']] =
     itemprop.text.gsub(/[\n\r\t]/, '').gsub(/\s\s*/, ' ').rstrip.lstrip
+    hash
   end
 end
