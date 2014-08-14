@@ -31,7 +31,7 @@ class HtmlParser
     hashresults = {}
 
     # Obtain all the schema main itemscopes
-    css('div[itemscope]').select { |item| item['itemprop'].nil? }.each do
+    css('[itemscope]').select { |item| item['itemprop'].nil? }.each do
       |itemscope|
       hashresults.merge!(analyse_itemscope_microdata(itemscope))
     end
@@ -41,23 +41,36 @@ class HtmlParser
 
   # Internal method that inspects the hierarchical structure of a itemscope
   def analyse_itemscope_microdata(itemscope)
-    hashresults, subclasses, directproperties = {}, {}, {}
+    hashresults = {}
 
     # Analyse subscopes
-    itemscope.css('div').each do |itemprop|
-      subclasses[itemprop['itemprop']] = analyse_itemscope_microdata(itemprop)
-    end
+    subclasses = analyse_subscopes_microdata(itemscope)
 
     # Obtain direct properties of the main itemscope
-    itemscope.css('span').each do |itemprop|
-      directproperties[itemprop['itemprop']] =
-        analyse_propertie_microdata(itemprop)
-    end
+    directproperties = analyse_dirproperties_microdata(itemscope)
 
     # Merge filtered results
     hashresults["#{itemscope['itemtype']}"] =
     subclasses.merge(directproperties)
     hashresults
+  end
+  # Analyse subscopes with mutual recursion
+  def analyse_subscopes_microdata(itemscope)
+    subclasses = {}
+    itemscope.css('> [itemscope]').each do |itemprop|
+      subclasses[itemprop['itemprop']] = analyse_itemscope_microdata(itemprop)
+    end
+    subclasses
+  end
+  # Obtain direct properties of the main itemscope
+  def analyse_dirproperties_microdata(itemscope)
+    directproperties = {}
+    itemscope.css('> [itemprop]').select { |it| it['itemscope'].nil? }.each do
+      |itemprop|
+      directproperties[itemprop['itemprop']] =
+        analyse_propertie_microdata(itemprop)
+    end
+    directproperties
   end
 
   # Internal method that inspects the values of final properties
