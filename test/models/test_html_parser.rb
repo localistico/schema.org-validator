@@ -1,19 +1,19 @@
 # Encoding: utf-8
-require '../../app/models/html_parser.rb'
-require 'nokogiri'
 require 'yaml'
+require 'test_helper'
 
-# Main code
-if __FILE__ == $PROGRAM_NAME
-  begin
-    parser = HtmlParser.new('../fixtures/webpage_demo.html')
-    puts parser.analyse_micro_data
-    puts YAML.load_file('../fixtures/webparsed.yml')
-    
-    
+# HtmlParser Test
+class HtmlParserTest < ActiveSupport::TestCase
+  # Main test: hash generation
+  test 'the truth' do
+    begin
+      parser = HtmlParser.new('../fixtures/webpage_demo.html')
+      file = YAML.load_file('../fixtures/webparsed.yml')
+      assert parser == file
     rescue => e
       puts e.message
       puts e.backtrace.inspect
+      assert false
+    end
   end
-
 end
