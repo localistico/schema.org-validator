@@ -42,25 +42,23 @@ class HtmlParser
   # Internal method that inspects the hierarchical structure of a itemscope
   def analyse_itemscope_microdata(itemscope)
     partialresults = {}
-    
     # Get the direct descendents
     itemscope.children.each do |child|
-      # Analyse subscopes
-      if is_subscope?(child)
+      # Analyse subscope
+      if subscope?(child)
         partialresults.merge!(analyse_subscope_microdata(child))
       else
         # Obtain direct properties of the main itemscope
-        if is_directproperty?(child)
-          partialresults.merge!(analyse_dirpropertie_microdata(child))
+        if directproperty?(child)
+          process_directpropertie(child, partialresults)
         else
-          # Look for another properties covered by another kind of tags (like <h1>)
+          # Look for another properties covered by another kind of tags (<h1>)
           partialresults.merge!(analyse_anotpropertie_microdata(child))
         end
       end
     end
-    
     # Ensure the item is a schema tag
-    if (!"#{itemscope['itemtype']}".eql?(''))
+    if !"#{itemscope['itemtype']}".eql?('')
       # Merge filtered results
       hashresults = {}
       hashresults["#{itemscope['itemtype']}"] = partialresults
@@ -76,27 +74,46 @@ class HtmlParser
     subclasses[itemprop['itemprop']] = analyse_itemscope_microdata(itemprop)
     subclasses
   end
-
   # Search another properties of the itemscope
   def analyse_anotpropertie_microdata(child)
-    hashmap = analyse_itemscope_microdata(child)
+    analyse_itemscope_microdata(child)
   end
-  
-  #Verify if an item is a subscope
-  def is_subscope?(item)
+  # Verify if an item is a subscope
+  def subscope?(item)
     !item['itemscope'].nil?
   end
-  
-  #Verify if an item is a direct property
-  def is_directproperty?(item)
-    !item['itemprop'].nil? && !is_subscope?(item)
+  # Verify if an item is a direct property
+  def directproperty?(item)
+    !item['itemprop'].nil? && !subscope?(item)
   end
 
   # Internal method that inspects the values of final properties
   def analyse_dirpropertie_microdata(itemprop)
-    hash={}
-    hash[itemprop['itemprop']] =
-    itemprop.text.gsub(/[\n\r\t]/, '').gsub(/\s\s*/, ' ').rstrip.lstrip
-    hash
+    if !itemprop.text.eql?('')
+      itemprop.text.gsub(/[\n\r\t]/, '').gsub(/\s\s*/, ' ').rstrip.lstrip
+    else
+      itemprop['content']
+    end
+  end
+  # Internal method that process direct properties
+  def process_directpropertie(child, partialresults)
+    # There is already one or more attributes of this property
+    if partialresults[child['itemprop']]
+      # There is already an array of this property
+      if partialresults[child['itemprop']].is_a?(Array)
+        partialresults[child['itemprop']] =
+        partialresults[child['itemprop']] <<
+        (analyse_dirpropertie_microdata(child))
+      else
+        # There is only one attribute
+        array = []
+        array << partialresults[child['itemprop']]
+        array << analyse_dirpropertie_microdata(child)
+        partialresults[child['itemprop']] = array
+      end
+    else
+      partialresults[child['itemprop']] =
+      (analyse_dirpropertie_microdata(child))
+    end
   end
 end
