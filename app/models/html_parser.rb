@@ -1,6 +1,4 @@
 # Encoding: utf-8
-require 'rubygems'
-require 'nokogiri'
 require 'open-uri'
 
 # Class that parses the HTML code of a webpage and extracts schema information
@@ -31,8 +29,7 @@ class HtmlParser
     hashresults = {}
 
     # Obtain all the schema main itemscopes
-    css('[itemscope]:not([itemprop])').each do
-      |itemscope|
+    css('[itemscope]:not([itemprop])').each do |itemscope|
       hashresults.merge!(analyse_itemscope_microdata(itemscope))
     end
 
@@ -58,10 +55,10 @@ class HtmlParser
       end
     end
     # Ensure the item is a schema tag
-    if !"#{itemscope['itemtype']}".eql?('')
+    if !(itemscope['itemtype'].to_s == '')
       # Merge filtered results
       hashresults = {}
-      hashresults["#{itemscope['itemtype']}"] = partialresults
+      hashresults[itemscope['itemtype'].to_s] = partialresults
       hashresults
     else
       # If not, data tree doesn't grow

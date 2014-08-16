@@ -1,5 +1,6 @@
 # Encoding: utf-8
-require '../../app/models/nokogiri_parser.rb'
+require '../../app/models/html_parser.rb'
+require 'nokogiri'
 
 # Main code
 if __FILE__ == $PROGRAM_NAME
