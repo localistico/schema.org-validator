@@ -8,6 +8,7 @@ class HtmlParser
     @adress = webadress
     begin
       @page = Nokogiri::HTML(open(@adress))
+      @hash = analyse_microdata
     rescue
       raise("Webpage #{@adress} is not available")
     end
@@ -22,9 +23,20 @@ class HtmlParser
   def css(string)
     @page.css(string)
   end
+  
+  # Hash parsed
+  def hash
+    @hash
+  end
+  
+  # Method that inspects the parsed hash
+  def [](name)
+    @hash[name]
+  end
 
+private
   # CSS method that builds the hierarchical structure of the tags in MicroData
-  def analyse_micro_data
+  def analyse_microdata
     # Hash table of results
     hashresults = {}
 
