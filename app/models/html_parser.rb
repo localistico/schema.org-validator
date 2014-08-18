@@ -8,12 +8,8 @@ class HtmlParser
   # This class needs the adress string of the webpage
   def initialize(webadress)
     @adress = webadress
-    begin
-      @page = Nokogiri::HTML(open(@adress))
-      @hash = analyse_microdata
-    rescue
-      raise("Webpage #{@adress} is not available")
-    end
+    @page = Nokogiri::HTML(open(@adress))
+    @hash = analyse_microdata
   end
   # HTML code of the webpage
   def inspect
@@ -34,41 +30,30 @@ class HtmlParser
   def analyse_microdata
     # Hash table of results
     hashresults = {}
-
     # Obtain all the schema main itemscopes
     css('[itemscope]:not([itemprop])').each do |itemscope|
       hashresults.merge!(analyse_itemscope_microdata(itemscope))
     end
-
     hashresults
   end
 
   # Internal method that inspects the hierarchical structure of a itemscope
   def analyse_itemscope_microdata(itemscope)
-    partialresults = {}
     # Get the direct descendents
-    itemscope.children.each do |child|
-      # Analyse subscope
-      if subscope?(child)
-        partialresults.merge!(analyse_subscope_microdata(child))
-      else
-        # Obtain direct properties of the main itemscope
-        if directproperty?(child)
-          process_directpropertie(child, partialresults)
-        else
-          # Look for another properties covered by another kind of tags (<h1>)
-          partialresults.merge!(analyse_anotpropertie_microdata(child))
-        end
-      end
-    end
-    # Ensure the item is a schema tag
-    schema_tag_verify_microdata(itemscope, partialresults)
+    partialresults = analyse_dirdescendants_microdata(itemscope)
+    # Add tag if the item is a schema tag
+    datatree_grow_microdata(itemscope, partialresults)
   end
   # Analyse subscope with mutual recursion
-  def analyse_subscope_microdata(itemprop)
-    subclasses = {}
-    subclasses[itemprop['itemprop']] = analyse_itemscope_microdata(itemprop)
-    subclasses
+  def analyse_subscope_microdata(itemprop, partialresults)
+    results = partialresults[itemprop['itemprop']] || []
+    results = [results] unless results.is_a?(Array)
+    results << analyse_itemscope_microdata(itemprop)
+    if results.size > 1
+      partialresults[itemprop['itemprop']] = results
+    else
+      partialresults[itemprop['itemprop']] = results.first
+    end
   end
   # Search another properties of the itemscope
   def analyse_anotpropertie_microdata(child)
@@ -88,40 +73,56 @@ class HtmlParser
     if !itemprop.text.eql?('')
       itemprop.text.gsub(/[\n\r\t]/, '').gsub(/\s\s*/, ' ').rstrip.lstrip
     else
-      itemprop['content']
+      return itemprop['content'] if itemprop['content']
+      itemprop['datetime']
     end
   end
   # Internal method that process direct properties
   def process_directpropertie(child, partialresults)
-    # There is already one or more attributes of this property
-    if partialresults[child['itemprop']]
-      # There is already an array of this property
-      if partialresults[child['itemprop']].is_a?(Array)
-        partialresults[child['itemprop']] <<
-        (analyse_dirpropertie_microdata(child))
-      else
-        # There is only one attribute
-        array = []
-        array << partialresults[child['itemprop']]
-        array << analyse_dirpropertie_microdata(child)
-        partialresults[child['itemprop']] = array
-      end
+    results = partialresults[child['itemprop']] || []
+    results = [results] unless results.is_a?(Array)
+    results << analyse_dirpropertie_microdata(child)
+    if results.size > 1
+      partialresults[child['itemprop']] = results
     else
-      partialresults[child['itemprop']] =
-      (analyse_dirpropertie_microdata(child))
+      partialresults[child['itemprop']] = results.first
     end
   end
-  # Ensure the item is a schema tag
-  def schema_tag_verify_microdata(itemscope, partialresults)
+  # Grow (or not) datatree depending on schema tag
+  def datatree_grow_microdata(itemscope, partialresults)
     # Ensure the item is a schema tag
     if !(itemscope['itemtype'].to_s == '')
-      # Merge filtered results
+      # Add schema tag on hash
       hashresults = {}
       hashresults[itemscope['itemtype'].to_s] = partialresults
       hashresults
     else
       # If not, data tree doesn't grow
       partialresults
+    end
+  end
+  # Analyse direct descendants
+  def analyse_dirdescendants_microdata(itemscope)
+    # Get the direct descendents
+    partialresults = {}
+    itemscope.children.each do |child|
+      analyse_dirdescendant_microdata(child, partialresults)
+    end
+    partialresults
+  end
+  # Analyse direct descendant
+  def analyse_dirdescendant_microdata(child, partialresults)
+    # Analyse subscope
+    if subscope?(child)
+      analyse_subscope_microdata(child, partialresults)
+    else
+      # Obtain direct properties of the main itemscope
+      if directproperty?(child)
+        process_directpropertie(child, partialresults)
+      else
+        # Look for another properties covered by another kind of tags (<h1>)
+        partialresults.merge!(analyse_anotpropertie_microdata(child))
+      end
     end
   end
 end
