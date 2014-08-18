@@ -12,112 +12,139 @@ class HtmlParserTest < ActiveSupport::TestCase
   # Name test
   test 'name' do
     parser = HtmlParser.new('test/fixtures/webpage_demo.html')
-    assert_equal parser['http://schema.org/LocalBusiness']['name'], "Beachwalk Beachwear & Giftware"
+    assert_equal parser['http://schema.org/LocalBusiness']['name'],
+                 'Beachwalk Beachwear & Giftware'
   end
-  # Description test  
+  # Description test
   test 'description' do
     parser = HtmlParser.new('test/fixtures/webpage_demo.html')
-    assert_equal parser['http://schema.org/LocalBusiness']['description'], "A superb collection of fine gifts and clothing to accent your stay in Mexico Beach."
+    description = parser['http://schema.org/LocalBusiness']['description']
+    assert_equal description, 'A superb collection of fine gifts and ' \
+                              'clothing to accent your stay in Mexico Beach.'
   end
-    # Address test  
+  # Address test
   test 'address' do
     parser = HtmlParser.new('test/fixtures/webpage_demo.html')
-    assert_equal parser['http://schema.org/LocalBusiness']['address'].keys[0], "http://schema.org/PostalAddress"
-  end    
-  # streetAddress test  
+    address = parser['http://schema.org/LocalBusiness']['address']
+    assert_equal address.keys[0], 'http://schema.org/PostalAddress'
+  end
+  # streetAddress test
   test 'streetAddress' do
     parser = HtmlParser.new('test/fixtures/webpage_demo.html')
-    assert_equal parser['http://schema.org/LocalBusiness']['address']["http://schema.org/PostalAddress"]['streetAddress'], "3102 Highway 98"
-  end  
-  # addressLocality test  
+    address = parser['http://schema.org/LocalBusiness']['address']
+    assert_equal address['http://schema.org/PostalAddress']['streetAddress'],
+                 '3102 Highway 98'
+  end
+  # addressLocality test
   test 'addressLocality' do
     parser = HtmlParser.new('test/fixtures/webpage_demo.html')
-    assert_equal parser['http://schema.org/LocalBusiness']['address']["http://schema.org/PostalAddress"]['addressLocality'], "Mexico Beach"
+    address = parser['http://schema.org/LocalBusiness']['address']
+    assert_equal address['http://schema.org/PostalAddress']['addressLocality'],
+                 'Mexico Beach'
   end
-    # addressRegion test  
+  # addressRegion test
   test 'addressRegion' do
     parser = HtmlParser.new('test/fixtures/webpage_demo.html')
-    assert_equal parser['http://schema.org/LocalBusiness']['address']["http://schema.org/PostalAddress"]['addressRegion'], "FL"
+    address = parser['http://schema.org/LocalBusiness']['address']
+    assert_equal address['http://schema.org/PostalAddress']['addressRegion'],
+                 'FL'
   end
-    # telephone test  
+  # telephone test
   test 'telephone' do
     parser = HtmlParser.new('test/fixtures/webpage_demo.html')
-    assert_equal parser['http://schema.org/LocalBusiness']['telephone'], "850-648-4200"
+    assert_equal parser['http://schema.org/LocalBusiness']['telephone'],
+                 '850-648-4200'
   end
-    # Restaurant test
+  # Restaurant test
   test 'Restaurant' do
     parser = HtmlParser.new('test/fixtures/webpage_demo.html')
     assert_equal parser.hash.keys[1], 'http://schema.org/Restaurant'
-  end  
+  end
   # Name test
   test 'nameRest' do
     parser = HtmlParser.new('test/fixtures/webpage_demo.html')
-    assert_equal parser['http://schema.org/Restaurant']['name'], "GreatFood"
+    assert_equal parser['http://schema.org/Restaurant']['name'], 'GreatFood'
   end
-  # Aggregate rating test  
+  # Aggregate rating test
   test 'aggregateRating' do
     parser = HtmlParser.new('test/fixtures/webpage_demo.html')
-    assert_equal parser['http://schema.org/Restaurant']['aggregateRating'].keys[0], "http://schema.org/AggregateRating"
+    rating = parser['http://schema.org/Restaurant']['aggregateRating']
+    assert_equal rating.keys[0], 'http://schema.org/AggregateRating'
   end
-    # ratingValue test  
+  # ratingValue test
   test 'ratingValue' do
     parser = HtmlParser.new('test/fixtures/webpage_demo.html')
-    assert_equal parser['http://schema.org/Restaurant']['aggregateRating']["http://schema.org/AggregateRating"]['ratingValue'], "4"
+    rating = parser['http://schema.org/Restaurant']['aggregateRating']
+    assert_equal rating['http://schema.org/AggregateRating']['ratingValue'], '4'
   end
-      # reviewCount test  
+  # reviewCount test
   test 'reviewCount' do
     parser = HtmlParser.new('test/fixtures/webpage_demo.html')
-    assert_equal parser['http://schema.org/Restaurant']['aggregateRating']["http://schema.org/AggregateRating"]['reviewCount'], "250"
+    rating = parser['http://schema.org/Restaurant']['aggregateRating']
+    assert_equal rating['http://schema.org/AggregateRating']['reviewCount'],
+                 '250'
   end
-      # Address rest test  
+  # Address rest test
   test 'addressRest' do
     parser = HtmlParser.new('test/fixtures/webpage_demo.html')
-    assert_equal parser['http://schema.org/Restaurant']['address'].keys[0], "http://schema.org/PostalAddress"
-  end   
-        # streetAddress rest test  
+    assert_equal parser['http://schema.org/Restaurant']['address'].keys[0],
+                 'http://schema.org/PostalAddress'
+  end
+  # streetAddress rest test
   test 'streetAddressRest' do
     parser = HtmlParser.new('test/fixtures/webpage_demo.html')
-    assert_equal parser['http://schema.org/Restaurant']['address']["http://schema.org/PostalAddress"]['streetAddress'], "1901 Lemur Ave"
+    address = parser['http://schema.org/Restaurant']['address']
+    assert_equal address['http://schema.org/PostalAddress']['streetAddress'],
+                 '1901 Lemur Ave'
   end
-          # addressLocality rest test  
+  # addressLocality rest test
   test 'addressLocalityRest' do
     parser = HtmlParser.new('test/fixtures/webpage_demo.html')
-    assert_equal parser['http://schema.org/Restaurant']['address']["http://schema.org/PostalAddress"]['addressLocality'], "Sunnyvale"
-  end   
-          # addressRegion rest test  
+    address = parser['http://schema.org/Restaurant']['address']
+    assert_equal address['http://schema.org/PostalAddress']['addressLocality'],
+                 'Sunnyvale'
+  end
+  # addressRegion rest test
   test 'addressRegionRest' do
     parser = HtmlParser.new('test/fixtures/webpage_demo.html')
-    assert_equal parser['http://schema.org/Restaurant']['address']["http://schema.org/PostalAddress"]['addressRegion'], "CA"
-  end     
-          # postalCode rest test  
+    address = parser['http://schema.org/Restaurant']['address']
+    assert_equal address['http://schema.org/PostalAddress']['addressRegion'],
+                 'CA'
+  end
+  # postalCode rest test
   test 'postalCodeRest' do
     parser = HtmlParser.new('test/fixtures/webpage_demo.html')
-    assert_equal parser['http://schema.org/Restaurant']['address']["http://schema.org/PostalAddress"]['postalCode'], "94086"
+    address = parser['http://schema.org/Restaurant']['address']
+    assert_equal address['http://schema.org/PostalAddress']['postalCode'],
+                 '94086'
   end
-    # Telephone rest test
+  # Telephone rest test
   test 'telephoneRest' do
     parser = HtmlParser.new('test/fixtures/webpage_demo.html')
-    assert_equal parser['http://schema.org/Restaurant']['telephone'], "(408) 714-1489"
+    assert_equal parser['http://schema.org/Restaurant']['telephone'],
+                 '(408) 714-1489'
   end
-      # url rest test
+  # url rest test
   test 'urlRest' do
     parser = HtmlParser.new('test/fixtures/webpage_demo.html')
-    assert_equal parser['http://schema.org/Restaurant']['url'], "www.greatfood.com"
+    assert_equal parser['http://schema.org/Restaurant']['url'],
+                 'www.greatfood.com'
   end
-      # openingHours rest test
+  # openingHours rest test
   test 'openingHoursRest' do
     parser = HtmlParser.new('test/fixtures/webpage_demo.html')
-    assert_equal parser['http://schema.org/Restaurant']['openingHours'], ["Mo-Sa 11:00-14:30", "Mo-Th 17:00-21:30", "Fr-Sa 17:00-22:00"]
+    assert_equal parser['http://schema.org/Restaurant']['openingHours'],
+                 ['Mo-Sa 11:00-14:30', 'Mo-Th 17:00-21:30', 'Fr-Sa 17:00-22:00']
   end
-      # servesCuisine rest test
+  # servesCuisine rest test
   test 'servesCuisineRest' do
     parser = HtmlParser.new('test/fixtures/webpage_demo.html')
-    assert_equal parser['http://schema.org/Restaurant']['servesCuisine'], ["Middle Eastern", "Mediterranean"]
+    assert_equal parser['http://schema.org/Restaurant']['servesCuisine'],
+                 ['Middle Eastern', 'Mediterranean']
   end
-      #  priceRange rest test
+  # priceRange rest test
   test 'priceRangeRest' do
     parser = HtmlParser.new('test/fixtures/webpage_demo.html')
-    assert_equal parser['http://schema.org/Restaurant']['priceRange'], "$$"
+    assert_equal parser['http://schema.org/Restaurant']['priceRange'], '$$'
   end
-                     
 end

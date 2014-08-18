@@ -3,6 +3,8 @@ require 'open-uri'
 
 # Class that parses the HTML code of a webpage and extracts schema information
 class HtmlParser
+  # Accesible variables
+  attr_reader :hash
   # This class needs the adress string of the webpage
   def initialize(webadress)
     @adress = webadress
@@ -13,28 +15,21 @@ class HtmlParser
       raise("Webpage #{@adress} is not available")
     end
   end
-
   # HTML code of the webpage
   def inspect
     "Parser of #{@adress}:\n#{@page}"
   end
-
   # CSS method filters tags
   def css(string)
     @page.css(string)
   end
-  
-  # Hash parsed
-  def hash
-    @hash
-  end
-  
   # Method that inspects the parsed hash
   def [](name)
     @hash[name]
   end
 
-private
+  private
+
   # CSS method that builds the hierarchical structure of the tags in MicroData
   def analyse_microdata
     # Hash table of results
@@ -67,15 +62,7 @@ private
       end
     end
     # Ensure the item is a schema tag
-    if !(itemscope['itemtype'].to_s == '')
-      # Merge filtered results
-      hashresults = {}
-      hashresults[itemscope['itemtype'].to_s] = partialresults
-      hashresults
-    else
-      # If not, data tree doesn't grow
-      partialresults
-    end
+    schema_tag_verify_microdata(itemscope, partialresults)
   end
   # Analyse subscope with mutual recursion
   def analyse_subscope_microdata(itemprop)
@@ -110,7 +97,6 @@ private
     if partialresults[child['itemprop']]
       # There is already an array of this property
       if partialresults[child['itemprop']].is_a?(Array)
-        partialresults[child['itemprop']] =
         partialresults[child['itemprop']] <<
         (analyse_dirpropertie_microdata(child))
       else
@@ -123,6 +109,19 @@ private
     else
       partialresults[child['itemprop']] =
       (analyse_dirpropertie_microdata(child))
+    end
+  end
+  # Ensure the item is a schema tag
+  def schema_tag_verify_microdata(itemscope, partialresults)
+    # Ensure the item is a schema tag
+    if !(itemscope['itemtype'].to_s == '')
+      # Merge filtered results
+      hashresults = {}
+      hashresults[itemscope['itemtype'].to_s] = partialresults
+      hashresults
+    else
+      # If not, data tree doesn't grow
+      partialresults
     end
   end
 end
