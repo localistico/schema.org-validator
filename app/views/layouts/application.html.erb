@@ -8,7 +8,41 @@
 </head>
 <body>
 
-<%= yield %>
+<div id= "encabezado" ><hr> <h1 id="h1">Schema.org-validator</h1>
+<p></p>
+
+
+<%= form_tag({:controller => "validator", :action => "index"}, :method => "index") do %>
+   <div id="encabezado2">
+   <p id="instrucciones">Type the url that you want to analize and press the submit button to extract data of it</p>
+   
+   <%= text_field_tag "url", "", :required => "required" %>
+   <%= submit_tag "Submit", class: "button" %>
+   </div>
+<% end %>
+
+
+
+
+<hr>
+</div>
+
+
+
+<div id="contenido"> <hr>
+<br>
+
+	<%= yield %>
+	
+<br>
+
+<hr>
+</div>
+
+
+
+
+
 
 </body>
 </html>
