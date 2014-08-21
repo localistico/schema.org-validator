@@ -8,13 +8,14 @@
 </head>
 <body>
 
-<div id= "encabezado" ><hr> <h1 id="h1">Schema.org-validator</h1>
-<p></p>
+<div id= "header" ><hr> <h1>Schema.org-validator</h1>
+<br>
 
 
 <%= form_tag({:controller => "validator", :action => "index"}, :method => "index") do %>
-   <div id="encabezado2">
-   <p id="instrucciones">Type the url that you want to analize and press the submit button to extract data of it</p>
+   <div id="header2">
+   <div id="textInstructions">Type the URL that you want to analize and press the submit button to extract data of it
+   	</div>
    
    <%= text_field_tag "url", "", :required => "required" %>
    <%= submit_tag "Submit", class: "button" %>
@@ -29,18 +30,26 @@
 
 
 
-<div id="contenido"> <hr>
+<div id="dataBlock"> <hr>
 <br>
 
-	<%= yield %>
-	
-<br>
+<%if(@request)%>
+	<%if(@urlerror)%>	
+		<p id="ErrorText"> 
+			<%= image_tag "warning.jpg", :alt => "Connection Error", :title => "Connection Error"%>
+			Unable to connect to the URL you entered. Please, check you URL and try again.
+			</p>
+		<%@urlerror = false;%>
+	<%else%>
+		<%= yield  %>
+	<%end%>
+<%end%>
 
-<hr>
+
 </div>
 
 
-
+<br>
 
 
 

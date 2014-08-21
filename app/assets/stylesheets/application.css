@@ -38,32 +38,32 @@
 
 }
 
-#h1{
+h1{
 	
 	color: white;
 	font-style: italic;
 	padding-left: 10px;
 }
 
-#encabezado{
+#header{
 	background: #113399;	
 
 }
 
-#encabezado2{
+#header2{
 	padding-left: 10px;
 	
 }
 
-#instrucciones{
+#textInstructions{
 	color:white;
 	font-size: 12;
 	
 }
 
 
-#contenido{
-	
+#ErrorText{
+	font-size:16;
 	
 }
 
