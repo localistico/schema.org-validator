@@ -51,13 +51,24 @@ class MicrodataExtraction
     hashresults = {}
     # Obtain all the schema main itemscopes
     css('[itemscope]:not([itemprop])').each do |itemscope|
-      hashresults.merge!(analyse_itemscope_microdata(itemscope))
+      analyse_mainitemscope(itemscope, hashresults)
     end
     hashresults
   end
 
   private
 
+  # Internal method that inspects the structure of the main itemscope
+  def analyse_mainitemscope(itemscope, hashresults)
+    results = hashresults[itemscope['itemtype']] || []
+    results = [results] unless results.is_a?(Array)
+    results << analyse_itemscope_microdata(itemscope)[itemscope['itemtype']]
+    if results.size > 1
+      hashresults[itemscope['itemtype']] = results
+    else
+      hashresults[itemscope['itemtype']] = results.first
+    end
+  end
   # Internal method that inspects the hierarchical structure of a itemscope
   def analyse_itemscope_microdata(itemscope)
     # Get the direct descendents
@@ -164,13 +175,24 @@ class RDFaExtraction
     hashresults = {}
     # Obtain all the schema main types
     css("[vocab='#{@vocab}']:not([property])").each do |typeof|
-      hashresults.merge!(analyse_typeof_rdfa(typeof))
+      analyse_maintypeof(typeof, hashresults)
     end
     hashresults
   end
 
   private
 
+  # Internal method that inspects the hierarchical structure of the main type
+  def analyse_maintypeof(typeof, hashresults)
+    results = hashresults["#{@vocab}#{typeof['typeof']}"] || []
+    results = [results] unless results.is_a?(Array)
+    results << analyse_typeof_rdfa(typeof)["#{@vocab}#{typeof['typeof']}"]
+    if results.size > 1
+      hashresults["#{@vocab}#{typeof['typeof']}"] = results
+    else
+      hashresults["#{@vocab}#{typeof['typeof']}"] = results.first
+    end
+  end
   # Internal method that inspects the hierarchical structure of a type
   def analyse_typeof_rdfa(typeof)
     # Get the direct descendents
