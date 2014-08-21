@@ -94,7 +94,8 @@ class MicrodataExtraction
       itemprop.text.gsub(/[\n\r\t]/, '').gsub(/\s\s*/, ' ').rstrip.lstrip
     else
       return itemprop['content'] if itemprop['content']
-      itemprop['datetime']
+      return itemprop['datetime'] if itemprop['datetime']
+      itemprop['href']
     end
   end
   # Internal method that process microdata direct properties
@@ -206,7 +207,8 @@ class RDFaExtraction
       property.text.gsub(/[\n\r\t]/, '').gsub(/\s\s*/, ' ').rstrip.lstrip
     else
       return property['content'] if property['content']
-      property['datetime']
+      return property['datetime'] if property['datetime']
+      property['href']
     end
   end
   # Internal method that process rdfa direct properties
