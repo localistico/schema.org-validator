@@ -3,17 +3,17 @@ require 'open-uri'
 
 # Class that parses the HTML code of a webpage and extracts schema information
 class HtmlParser
-  # Accesible variables
+  # Accessible variables
   attr_reader :hash
-  # This class needs the adress string of the webpage
-  def initialize(webadress)
-    @address = webadress
+  # This class needs the address string of the webpage
+  def initialize(webaddress)
+    @address = webaddress
     @page = Nokogiri::HTML(open(@address))
     @hash = analyse_data
   end
   # HTML code of the webpage
   def inspect
-    "Parser of #{@adress}:\n#{@page}"
+    "Parser of #{@address}:\n#{@page}"
   end
   # CSS method filters tags
   def css(string)
