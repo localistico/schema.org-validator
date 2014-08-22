@@ -1,2 +1,18 @@
-<h2>Analysis result in <div id = "textUrl"><%=@url%> </div> </h2>
-<hr>
+
+
+<%if !@parse.nil?
+	
+	@output=""
+	@fila=0
+	get_html(@parse.hash)
+	%>
+	<div id = "body">
+	
+	<%=@output.html_safe %>
+	</div>
+		
+	<hr id="end">
+<%end%>
+
+
+

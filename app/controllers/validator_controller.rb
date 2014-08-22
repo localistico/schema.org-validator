@@ -2,6 +2,7 @@
 # Controller to the validator view.
 class ValidatorController < ApplicationController
   @request = false # Control if the user
+  @output =""
   def index
     (!request.post?) ? return :
     # When user pushes the submit button, the application analyses data.
@@ -10,7 +11,7 @@ class ValidatorController < ApplicationController
     @request = true # It allow to show the data in the view.
     # Controlling exceptions.
     begin
-      @parser = HtmlParser.new(@url) # to change.
+      @parse = HtmlParser.new(@url) # to change.
     rescue # Catch the exception and send error to the view.
       @urlerror = true
     end

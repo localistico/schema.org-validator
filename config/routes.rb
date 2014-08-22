@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'data/data'
+
   get 'validator/index'
   
   post 'validator/index'

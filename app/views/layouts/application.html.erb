@@ -14,7 +14,7 @@
 
 <%= form_tag({:controller => "validator", :action => "index"}, :method => "index") do %>
    <div id="header2">
-   <div id="textInstructions">Type the URL that you want to analize and press the submit button to extract data of it
+   <div id="textInstructions">Type the URL that you want to analyse and press the submit button to extract data of it
    	</div>
    
    <%= text_field_tag "url", "", :required => "required" %>
@@ -40,6 +40,9 @@
 			</p>
 		<%@urlerror = false;%>
 	<%else%>
+		<h2>Analysis result in <div id = "textUrl"><%=@url%> </div> </h2>
+		<br>
+		<hr>
 		<%= yield  %>
 	<%end%>
 <%end%>
