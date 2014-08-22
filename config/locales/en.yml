@@ -20,4 +20,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  title: "SchemaOrgValidator"
+  header: "Schema.org-validator"
+  instructions: "Type the URL that you want to analyse and press the submit button to extract data of it."
+  result_title: "Analysis result in"
+  connection_error: "Unable to connect to the URL you entered. Please, check you URL and try again."
+     
+    

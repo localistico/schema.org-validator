@@ -1,18 +1,14 @@
 
 
 <%if !@parse.nil?
-	
-	@output=""
-	@fila=0
 	get_html(@parse.hash)
 	%>
-	<div id = "body">
-	
-	<%=@output.html_safe %>
-	</div>
-		
+	<div id = "body"><%=@output.html_safe #Shows data in the view
+	%> 
+	</div>	
 	<hr id="end">
 <%end%>
+
 
 
 

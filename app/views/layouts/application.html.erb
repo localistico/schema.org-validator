@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SchemaOrgValidator</title>
+  <title><%=t('title')%></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<div id= "header" ><hr> <h1>Schema.org-validator</h1>
+<div id= "header" ><hr> <h1><%=t('header')%></h1>
 <br>
 
 
 <%= form_tag({:controller => "validator", :action => "index"}, :method => "index") do %>
    <div id="header2">
-   <div id="textInstructions">Type the URL that you want to analyse and press the submit button to extract data of it
+   <div id="textInstructions"><%=t('instructions')%>
    	</div>
    
    <%= text_field_tag "url", "", :required => "required" %>
    <%= submit_tag "Submit", class: "button" %>
    </div>
 <% end %>
-
-
-
 
 <hr>
 </div>
@@ -36,12 +33,11 @@
 	<%if(@urlerror)%>	
 		<p id="ErrorText"> 
 			<%= image_tag "warning.jpg", :alt => "Connection Error", :title => "Connection Error"%>
-			Unable to connect to the URL you entered. Please, check you URL and try again.
+			<%=t('connection_error')%>
 			</p>
 		<%@urlerror = false;%>
 	<%else%>
-		<h2>Analysis result in <div id = "textUrl"><%=@url%> </div> </h2>
-		<br>
+		<h2><%=t('result_title')%> <div id = "textUrl"><%=@url%> </div> </h2>
 		<hr>
 		<%= yield  %>
 	<%end%>

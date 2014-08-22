@@ -2,7 +2,6 @@
 # Controller to the validator view.
 class ValidatorController < ApplicationController
   @request = false # Control if the user
-  @output =""
   def index
     (!request.post?) ? return :
     # When user pushes the submit button, the application analyses data.
