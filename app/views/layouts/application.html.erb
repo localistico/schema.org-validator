@@ -9,47 +9,15 @@
 <body>
 
 <div id= "header" ><hr> <h1><%=t('header')%></h1>
-<br>
-
-
-<%= form_tag({:controller => "validator", :action => "index"}, :method => "index") do %>
-   <div id="header2">
-   <div id="textInstructions"><%=t('instructions')%>
-   	</div>
-   
-   <%= text_field_tag "url", "", :required => "required" %>
-   <%= submit_tag "Submit", class: "button" %>
-   </div>
-<% end %>
-
-<hr>
-</div>
 
 
 
-<div id="dataBlock"> <hr>
 
-<%if(@request)%>
-	<%if(@urlerror)%>	
-		<p id="ErrorText"> 
-			<%= image_tag "warning.jpg", :alt => "Connection Error", :title => "Connection Error"%>
-			<%=t('connection_error')%>
-			</p>
-		<%@urlerror = false;%>
-	<%else%>
-		<h2><%=t('result_title')%> <div id = "textUrl"><%=@url%> </div> </h2>
-		<hr>
-		<%= yield  %>
-	<%end%>
-<%end%>
+<%=yield%>
 
 
 </div>
-
-
 <br>
-
-
 
 </body>
 </html>

@@ -1,0 +1,22 @@
+<%= form_for(@extraction) do |f| %>
+  <% if @extraction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@extraction.errors.count, "error") %> prohibited this extraction from being saved:</h2>
+
+      <ul>
+      <% @extraction.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div id="header2">
+    <p id="textInstructions"><%=t('instructions')%> </p>
+    <p><%= f.text_field :url, :class =>"text_field" %>
+      <%= f.submit "Extract", :class =>"button" %></p>
+  </div>
+    
+  
+<% end %>
+

@@ -1,0 +1,31 @@
+<br><br>
+<%= link_to 'New analysis', extractions_path+'/new' , :id => 'back' %>
+
+<hr>
+</div>
+
+
+
+<%if @request%>
+	
+	<div>
+	<h2><%=t('result_title')%> </h2><h2><div id = "textUrl"><%=@url%> </div> </h2>
+	<hr>
+	<br>
+	<%if !@parse.nil?
+		get_html(@parse.hash)
+		%>
+		<div id = "body"><%=@output.html_safe #Shows data in the view
+		%> 
+		</div>	
+	<%end%>
+	<%@request = false%>
+<%end%>
+
+<hr>
+<div id = "end">
+	
+<%= link_to 'Back', extractions_path+'/new' , :id => 'back' %>
+</div>
+<hr>
+

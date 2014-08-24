@@ -1,0 +1,22 @@
+<br>
+<%= render 'form' %>
+<%if(@request)%>
+	<%if(@error_url)%>
+		<hr>	
+		</div>
+		<p id="ErrorText"> 
+			<%= image_tag "warning.jpg", :alt => "Connection Error", :title => "Connection Error"%>
+			<%=t('connection_error')%>
+			</p>
+		<div>
+		<%@error_url = false;%>
+	<%else%>
+		<h2><%=t('result_title')%> </h2><h2><div id = "textUrl"><%=@url%> </div> </h2>
+		<hr>
+		
+	<%end%>
+	<%@request = false%>
+<%end%>
+
+<hr>
+

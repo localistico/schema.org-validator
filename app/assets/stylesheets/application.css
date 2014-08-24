@@ -16,24 +16,15 @@
 
 
 
-#url{
+
+
+
+
+input.button{
 	color:black;
-	text-align: left;
-	font-size: 18px;
-	width: 40%;
-	padding-left: 5px;
-	font-style: italic; 
-} 
-
-
-
-.button{
-	color:black;
-	font-size:18px;	
+	font-size:17px;	
 	font-weight: bold;
 	padding: 2px;
-
-
 }
 
 h1{
@@ -79,5 +70,27 @@ body{
 }
 
 
+input.text_field{
+	color:black;
+	text-align: left;
+	font-size: 18px;
+	width: 40%;
+	padding-left: 5px;
+	font-style: italic; 
+} 
 
 
+#end{
+	padding-top: 4px;
+	padding-bottom: 4px;
+	background-color: #4455dd;
+	opacity: 0.8
+}
+
+#back{
+	font-size: 19px;
+	color: #ffffff;
+	text-align: center;nter;
+	padding-left: 10px;
+
+}

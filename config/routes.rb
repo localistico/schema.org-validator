@@ -1,21 +1,24 @@
 Rails.application.routes.draw do
-  get 'data/data'
+  resources :extractions
 
-  get 'validator/index'
-  
-  post 'validator/index'
+
+  get 'extractions/:id' => 'extractions#new'
+  get 'extractions' =>  'extractions#new'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   root 'validator#index'
+   root 'extractions#new'
+
+
+
 
   # Example of regular route:
-     get 'schemaorgvalidator/:id' => 'validator#index'
+    # get 'schemaorgvalidator/:id' => 'validator#index'
    
-     get 'schemaorgvalidator' => 'validator#index'
-     get 'validator/index' => 'validator#index'
+    # get 'schemaorgvalidator' => 'validator#index'
+    # get 'validator/index' => 'validator#index'
   
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
