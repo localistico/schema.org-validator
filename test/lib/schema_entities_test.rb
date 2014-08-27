@@ -1,0 +1,14 @@
+# Encoding: utf-8
+require 'test_helper'
+
+# SchemaParser Test
+class SchemaEntitiesTest < ActiveSupport::TestCase
+  # LocalBusiness test
+  test 'LocalBusiness' do
+   newclass = SchemaEntity::LocalBusiness.new
+   newclass2 = SchemaEntity::LocalBusiness.new
+   newclass.branch_of = newclass2
+   assert_equal false, newclass.valid?
+   assert_equal true, newclass.errors.messages
+  end
+end
