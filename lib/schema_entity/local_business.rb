@@ -17,7 +17,7 @@ module SchemaEntity
                             :payment_accepted, :price_range
       validates_type_of :branch_of, with_type: Organization, allow_nil: true
       validates_type_of :currencies_accepted, :payment_accepted, :price_range,
-                        with_type: String, allow_nil: true
+                        with_type: Text, allow_nil: true
       validates_type_of :opening_hours, with_type: Duration, allow_nil: true
     end
   end

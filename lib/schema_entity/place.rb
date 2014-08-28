@@ -24,7 +24,7 @@ module SchemaEntity
       validates_type_of :event, with_type: Event, allow_nil: true
       validates_type_of :fax_number, :global_location_number,
                         :interaction_count, :isic_v4, :telephone,
-                        with_type: String, allow_nil: true
+                        with_type: Text, allow_nil: true
       validates_type_of :geo, with_type: [GeoShape, GeoCoordinates],
                               allow_nil: true
       validates_type_of :has_map, with_type: [URL, Map], allow_nil: true
