@@ -8,8 +8,8 @@ module SchemaEntity
       begin
         send(:"#{key}=", value)
       rescue NoMethodError
-      # Property doesn't exist
-      @failures << key
+        # Property doesn't exist
+        @failures << key
       end
     end
   end
