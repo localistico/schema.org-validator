@@ -7,6 +7,7 @@ module SchemaEntity
     extend ActiveSupport::Concern
     include Place
     include Organization
+    include Thing
     include ActiveModel::Validations
     # Method called when other module of method included it
     included do
