@@ -1,4 +1,6 @@
 # Encoding: utf-8
+require 'type_validator.rb'
+
 module SchemaEntity
   # Class that represents the entity Thing
   module Thing
