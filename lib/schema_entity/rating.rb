@@ -1,6 +1,6 @@
 # Encoding: utf-8
 module SchemaEntity
-  # Class that represents the entity Rating
+  # Module that represents the entity Rating
   module Rating
     extend ActiveSupport::Concern
     include ActiveModel::Validations

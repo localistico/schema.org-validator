@@ -1,6 +1,6 @@
 # Encoding: utf-8
 module SchemaEntity
-  # Class that represents the entity ContactPoint
+  # Module that represents the entity ContactPoint
   module ContactPoint
     extend ActiveSupport::Concern
     include ActiveModel::Validations

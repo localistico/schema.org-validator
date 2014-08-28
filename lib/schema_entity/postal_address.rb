@@ -1,6 +1,6 @@
 # Encoding: utf-8
 module SchemaEntity
-  # Class that represents the entity PostalAddress
+  # Module that represents the entity PostalAddress
   module PostalAddress
     extend ActiveSupport::Concern
     include ContactPoint
