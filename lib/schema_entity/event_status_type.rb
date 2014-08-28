@@ -1,7 +1,7 @@
 # Encoding: utf-8
 module SchemaEntity
-  # Module that represents the entity OwnershipInfo
-  module OwnershipInfo
+  # Module that represents the entity EventStatusType
+  module EventStatusType
     extend ActiveSupport::Concern
     include ActiveModel::Validations
     included do

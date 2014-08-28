@@ -1,6 +1,6 @@
 # Encoding: utf-8
 module SchemaEntity
-  # Class that represents the entity Demand
+  # Module that represents the entity Demand
   module Demand
     extend ActiveSupport::Concern
     include ActiveModel::Validations

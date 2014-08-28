@@ -2,7 +2,7 @@
 require 'type_validator.rb'
 
 module SchemaEntity
-  # Class that represents the entity Brand
+  # Module that represents the entity Brand
   module Brand
     extend ActiveSupport::Concern
     include Thing

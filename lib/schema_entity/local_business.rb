@@ -2,7 +2,7 @@
 require 'type_validator.rb'
 
 module SchemaEntity
-  # Class that represents the entity LocalBusiness
+  # Module that represents the entity LocalBusiness
   module LocalBusiness
     extend ActiveSupport::Concern
     include Place
