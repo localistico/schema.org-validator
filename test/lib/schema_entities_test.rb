@@ -5,10 +5,9 @@ require 'test_helper'
 class SchemaEntitiesTest < ActiveSupport::TestCase
   # LocalBusiness test
   test 'LocalBusiness' do
-   newclass = LocalBusinessEntity.new
-   newclass2 = LocalBusinessEntity.new
-   newclass.branch_of = newclass2
-   assert_equal false, newclass.valid?
-   assert_equal true, newclass.errors.messages
+    newclass = LocalBusinessEntity.new
+    newclass2 = LocalBusinessEntity.new
+    newclass.branch_of = newclass2
+    assert_equal false, newclass.valid?
   end
 end

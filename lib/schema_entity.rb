@@ -1,3 +1,4 @@
+# Encoding: utf-8
 # Module that represents any kind of Entity
 module SchemaEntity
   # Initialize the class with its properties
@@ -5,7 +6,7 @@ module SchemaEntity
     @failures = []
     properties.each do |key, value|
       begin
-        self.send(:"#{key}=", value)
+        send(:"#{key}=", value)
       rescue NoMethodError
       # Property doesn't exist
       @failures << key
