@@ -1,6 +1,6 @@
 module SchemaEntity
-  # Module that represents the entity Duration
-  module Duration
+  # Class that represents the entity PostalAddress
+  module PostalAddress
     extend ActiveSupport::Concern
     include ActiveModel::Validations
     

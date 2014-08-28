@@ -1,6 +1,7 @@
 # Expected type validator
 class TypeValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
+    return if value.nil? && options[:allow_nil]
     unless value.is_a? options[:with_type]
       record.errors[attribute] << "expected to be #{options[:with_type]}}"
     end

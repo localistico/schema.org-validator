@@ -1,5 +1,5 @@
-# Class that represents any kind of Entity
-class SchemaEntity
+# Module that represents any kind of Entity
+module SchemaEntity
   # Initialize the class with its properties
   def initialize(properties = {})
     @failures = []
@@ -9,7 +9,7 @@ class SchemaEntity
       rescue NoMethodError
       # Property doesn't exist
       @failures << key
+      end
     end
-  end
   end
 end

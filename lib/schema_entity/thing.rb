@@ -1,7 +1,8 @@
 module SchemaEntity
-  # Module that represents the entity Duration
-  module Duration
+  # Class that represents the entity Thing
+  module Thing
     extend ActiveSupport::Concern
+    include SchemaEntity
     include ActiveModel::Validations
     
     included do

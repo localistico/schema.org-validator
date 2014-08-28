@@ -1,6 +1,6 @@
 module SchemaEntity
-  # Module that represents the entity Duration
-  module Duration
+  # Module that represents the entity URL
+  module URL
     extend ActiveSupport::Concern
     include ActiveModel::Validations
     

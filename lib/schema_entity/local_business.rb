@@ -1,13 +1,19 @@
 require 'type_validator.rb'
 
-class SchemaEntity
+module SchemaEntity
   # Class that represents the entity LocalBusiness
-  class LocalBusiness < Place
+  module LocalBusiness
+    extend ActiveSupport::Concern
+    include Place
+    include Organization
     include ActiveModel::Validations
-    attr_accessor :branch_of, :currencies_accepted, :opening_hours, :payment_accepted, :price_range
-    validates_presence_of :branch_of, :currencies_accepted, :opening_hours, :payment_accepted, :price_range
-    validates_type_of :branch_of, with_type: Organization
-    validates_type_of :currencies_accepted, :payment_accepted, :price_range, with_type: String
-    validates_type_of :opening_hours, with_type: Duration
+    
+    included do
+      attr_accessor :branch_of, :currencies_accepted, :opening_hours, :payment_accepted, :price_range
+      validates_presence_of :branch_of, :currencies_accepted, :opening_hours, :payment_accepted, :price_range
+      validates_type_of :branch_of, with_type: Organization, allow_nil: true
+      validates_type_of :currencies_accepted, :payment_accepted, :price_range, with_type: String, allow_nil: true
+      validates_type_of :opening_hours, with_type: Duration, allow_nil: true
+    end
   end
 end
