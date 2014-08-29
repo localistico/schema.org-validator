@@ -12,11 +12,6 @@ module SchemaEntity
                     :fax_number, :geo, :global_location_number,
                     :has_map, :interaction_count, :isic_v4, :logo,
                     :opening_hours_specification, :photo, :review, :telephone
-      validates_presence_of :address, :aggregate_rating, :contained_in, :event,
-                            :fax_number, :geo, :global_location_number,
-                            :has_map, :interaction_count,
-                            :isic_v4, :logo, :opening_hours_specification,
-                            :photo, :review, :telephone
       validates_type_of :address, with_type: PostalAddress,
                                   allow_nil: true
       validates_type_of :aggregate_rating, with_type: AggregateRating,

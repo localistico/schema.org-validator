@@ -1,9 +1,9 @@
 # Encoding: utf-8
 module SchemaEntity
-  # Module that represents the value Time
-  module Time
+  # Module that represents the entity Intangible
+  module Intangible
     extend ActiveSupport::Concern
-    include DataType
+    include Thing
     include ActiveModel::Validations
     included do
     end

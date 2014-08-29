@@ -2,7 +2,7 @@
 require 'type_validator.rb'
 
 module SchemaEntity
-  # Module that represents the entity URL
+  # Module that represents the value URL
   module URL
     extend ActiveSupport::Concern
     include Text
