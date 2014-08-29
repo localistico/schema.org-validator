@@ -3,6 +3,7 @@ module SchemaEntity
   # Module that represents the entity Time
   module Time
     extend ActiveSupport::Concern
+    include DataType
     include ActiveModel::Validations
     included do
     end
