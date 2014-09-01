@@ -1,4 +1,6 @@
 # Encoding: utf-8
+require 'type_validator.rb'
+
 module SchemaEntity
   # Module that represents the value Text
   module Text
