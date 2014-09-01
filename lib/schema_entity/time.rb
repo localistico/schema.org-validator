@@ -6,6 +6,12 @@ module SchemaEntity
     include DataType
     include ActiveModel::Validations
     included do
+      validates_format_of :value,
+                          with:
+                          /(2[0-3]|[01][0-9]):?
+                          ([0-5][0-9]):?([0-5][0-9])
+                          (Z|[+-](?:2[0-3]|[01][0-9])
+                          (?::?(?:[0-5][0-9]))?)/
     end
   end
 end
