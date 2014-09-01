@@ -1,4 +1,7 @@
 # Encoding: utf-8
+require 'type_validator.rb'
+require 'nested_validator.rb'
+
 module SchemaEntity
   # Module that represents the entity Event
   module Event
@@ -26,6 +29,11 @@ module SchemaEntity
       validates_type_of :typical_age_range, with_type: Text, allow_nil: true
       validates_type_of :work_Performed,
                         with_type: CreativeWork, allow_nil: true
+      validates_nested :attendee, :door_time, :duration, :end_date,
+                       :event_status, :location, :offers, :organizer,
+                       :performer, :previous_start_date, :start_date,
+                       :sub_event, :super_event,
+                       :typical_age_range, :work_performed, allow_nil: true
     end
   end
 end

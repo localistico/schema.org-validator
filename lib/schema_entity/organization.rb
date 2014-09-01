@@ -1,5 +1,6 @@
 # Encoding: utf-8
 require 'type_validator.rb'
+require 'nested_validator.rb'
 
 module SchemaEntity
   # Module that represents the entity Organization
@@ -58,6 +59,14 @@ module SchemaEntity
                         with_type: Review, allow_nil: true
       validates_type_of :seeks,
                         with_type: Demand, allow_nil: true
+      validates_nested :address, :aggregate_rating, :brand,
+                       :contact_point, :department, :dissolution_date,
+                       :duns, :email, :employee, :event, :fax_number,
+                       :founder, :founding_date, :global_location_number,
+                       :has_pos, :interaction_count, :isic_v4, :legal_name,
+                       :location, :logo, :makes_offer, :member, :member_of,
+                       :naics, :owns, :review, :seeks, :sub_organization,
+                       :tax_id, :telephone, :vat_id, allow_nil: true
     end
   end
 end

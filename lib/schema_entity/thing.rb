@@ -1,5 +1,6 @@
 # Encoding: utf-8
 require 'type_validator.rb'
+require 'nested_validator.rb'
 
 module SchemaEntity
   # Module that represents the entity Thing
@@ -15,6 +16,9 @@ module SchemaEntity
                         with_type: Text, allow_nil: true
       validates_type_of :image, with_type: [URL, ImageObject], allow_nil: true
       validates_type_of :potential_action, with_type: Action, allow_nil: true
+      validates_nested :additional_type, :alternate_name, :description,
+                       :image, :name, :potential_action, :same_as, :url,
+                       allow_nil: true
     end
   end
 end

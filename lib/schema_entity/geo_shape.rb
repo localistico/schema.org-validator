@@ -1,5 +1,6 @@
 # Encoding: utf-8
 require 'type_validator.rb'
+require 'nested_validator.rb'
 
 module SchemaEntity
   # Module that represents the entity GeoShape
@@ -13,6 +14,8 @@ module SchemaEntity
                         with_type: Text, allow_nil: true
       validates_type_of :elevation,
                         with_type: [Text, Number], allow_nil: true
+      validates_nested :box, :circle, :elevation, :line, :polygon,
+                       allow_nil: true
     end
   end
 end
