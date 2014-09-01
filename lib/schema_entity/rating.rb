@@ -1,4 +1,7 @@
 # Encoding: utf-8
+require 'type_validator.rb'
+require 'nested_validator.rb'
+
 module SchemaEntity
   # Module that represents the entity Rating
   module Rating
@@ -13,6 +16,8 @@ module SchemaEntity
                         with_type: [Text, Number], allow_nil: true
       validates_type_of :rating_value,
                         with_type: Text, allow_nil: true
+      validates_nested :best_rating, :rating_value, :worst_rating,
+                       allow_nil: true
     end
   end
 end

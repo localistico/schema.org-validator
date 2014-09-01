@@ -1,5 +1,6 @@
 # Encoding: utf-8
 require 'type_validator.rb'
+require 'nested_validator.rb'
 
 module SchemaEntity
   # Module that represents the entity ImageObject
@@ -18,6 +19,9 @@ module SchemaEntity
                         with_type: Boolean, allow_nil: true
       validates_type_of :thumbnail,
                         with_type: ImageObject, allow_nil: true
+      validates_nested :caption, :exif_data,
+                       :representative_of_page, :thumbnail,
+                       allow_nil: true
     end
   end
 end

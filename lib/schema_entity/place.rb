@@ -1,5 +1,6 @@
 # Encoding: utf-8
 require 'type_validator.rb'
+require 'nested_validator.rb'
 
 module SchemaEntity
   # Module that represents the entity Place
@@ -29,6 +30,11 @@ module SchemaEntity
       validates_type_of :photo, with_type: [ImageObject, Photograph],
                                 allow_nil: true
       validates_type_of :review, with_type: Review, allow_nil: true
+      validates_nested :address, :aggregate_rating, :contained_in, :event,
+                       :fax_number, :geo, :global_location_number,
+                       :has_map, :interaction_count, :isic_v4, :logo,
+                       :opening_hours_specification, :photo, :review,
+                       :telephone, allow_nil: true
     end
   end
 end
