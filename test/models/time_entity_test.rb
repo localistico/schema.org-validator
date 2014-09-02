@@ -1,7 +1,7 @@
 # Encoding: utf-8
 require 'test_helper'
 
-# SchemaParser Test
+# TimeEntity Test
 class TimeEntityTest < ActiveSupport::TestCase
   # Real time test
   test 'real_time' do
