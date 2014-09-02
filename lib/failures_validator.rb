@@ -13,7 +13,7 @@ module ActiveModel
   module Validations
     # Open Helpermethods module for adding new methods
     module HelperMethods
-      # Allows validates_type_of sintaxis
+      # Allows validates_failures_of sintaxis
       def validates_failures_of(*attr_names)
         validates_with FailuresValidator, _merge_attributes(attr_names)
       end
