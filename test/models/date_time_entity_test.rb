@@ -21,7 +21,7 @@ class DateTimeEntityTest < ActiveSupport::TestCase
     currency.valid?
     assert_equal Hash.new, currency.errors.messages
   end
-    # Real datetime test (local and together)
+  # Real datetime test (local and together)
   test 'real_datetime_local_together' do
     currency = DateTimeEntity.new(value: '20071103T131805')
     currency.valid?
