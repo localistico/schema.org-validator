@@ -7,7 +7,7 @@ class TypeValidator < ActiveModel::EachValidator
     values = [values] unless values.is_a?(Array)
     values.each do |val|
       record.errors[attribute] <<
-        "expected to be #{options[:with_type]} not #{val.class}}" unless
+        "expected to be #{options[:with_type]} not #{val.class}" unless
         same_type?(val)
     end
   end
