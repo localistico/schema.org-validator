@@ -1,9 +1,9 @@
 # Encoding: utf-8
 module SchemaEntity
-  # Module that represents the entity Photograph
-  module Photograph
+  # Module that represents the entity Enumeration
+  module Enumeration
     extend ActiveSupport::Concern
-    include CreativeWork
+    include Intangible
     include ActiveModel::Validations
     included do
     end

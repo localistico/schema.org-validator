@@ -6,7 +6,7 @@ module SchemaEntity
   # Module that represents the entity Brand
   module Brand
     extend ActiveSupport::Concern
-    include Thing
+    include Intangible
     include ActiveModel::Validations
     included do
       attr_accessor :logo

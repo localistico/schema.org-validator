@@ -6,7 +6,7 @@ module SchemaEntity
   # Module that represents the entity ContactPoint
   module ContactPoint
     extend ActiveSupport::Concern
-    include Thing
+    include StructuredValue
     include ActiveModel::Validations
     included do
       attr_accessor :area_served, :available_language,

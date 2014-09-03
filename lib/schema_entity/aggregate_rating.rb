@@ -7,7 +7,6 @@ module SchemaEntity
   module AggregateRating
     extend ActiveSupport::Concern
     include Rating
-    include Thing
     include ActiveModel::Validations
     included do
       attr_accessor :item_reviewed, :rating_count, :review_count

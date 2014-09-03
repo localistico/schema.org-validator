@@ -6,7 +6,7 @@ module SchemaEntity
   # Module that represents the entity OpeningHoursSpecification
   module OpeningHoursSpecification
     extend ActiveSupport::Concern
-    include Thing
+    include StructuredValue
     include ActiveModel::Validations
     included do
       attr_accessor :closes, :day_of_week, :opens,

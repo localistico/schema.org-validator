@@ -3,6 +3,7 @@ module SchemaEntity
   # Module that represents the entity ContactPointOption
   module ContactPointOption
     extend ActiveSupport::Concern
+    include Enumeration
     include ActiveModel::Validations
     included do
     end

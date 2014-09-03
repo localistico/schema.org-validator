@@ -6,7 +6,6 @@ module SchemaEntity
   # Module that represents the entity Rating
   module Rating
     extend ActiveSupport::Concern
-    include Thing
     include Intangible
     include ActiveModel::Validations
     included do

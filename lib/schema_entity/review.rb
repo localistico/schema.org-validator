@@ -7,7 +7,6 @@ module SchemaEntity
   module Review
     extend ActiveSupport::Concern
     include CreativeWork
-    include Thing
     include ActiveModel::Validations
     included do
       attr_accessor :item_reviewed, :review_body, :review_rating

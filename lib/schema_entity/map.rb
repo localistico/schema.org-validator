@@ -7,7 +7,6 @@ module SchemaEntity
   module Map
     extend ActiveSupport::Concern
     include CreativeWork
-    include Thing
     include ActiveModel::Validations
     included do
       attr_accessor :map_type

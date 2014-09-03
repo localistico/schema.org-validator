@@ -4,7 +4,6 @@ module SchemaEntity
   module Duration
     extend ActiveSupport::Concern
     include Quantity
-    include Thing
     include ActiveModel::Validations
     included do
       attr_accessor :value

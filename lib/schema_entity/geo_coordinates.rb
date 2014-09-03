@@ -6,7 +6,7 @@ module SchemaEntity
   # Module that represents the entity GeoCoordinates
   module GeoCoordinates
     extend ActiveSupport::Concern
-    include Thing
+    include StructuredValue
     include ActiveModel::Validations
     included do
       attr_accessor :elevation, :latitude, :longitude

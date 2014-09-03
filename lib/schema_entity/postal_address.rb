@@ -7,7 +7,6 @@ module SchemaEntity
   module PostalAddress
     extend ActiveSupport::Concern
     include ContactPoint
-    include Thing
     include ActiveModel::Validations
     included do
       attr_accessor :address_country, :address_locality, :address_region,

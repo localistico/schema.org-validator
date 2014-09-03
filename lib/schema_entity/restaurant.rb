@@ -7,10 +7,6 @@ module SchemaEntity
   module Restaurant
     extend ActiveSupport::Concern
     include FoodEstablishment
-    include LocalBusiness
-    include Organization
-    include Thing
-    include Place
     include ActiveModel::Validations
     included do
     end

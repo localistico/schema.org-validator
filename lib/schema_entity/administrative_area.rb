@@ -4,7 +4,6 @@ module SchemaEntity
   module AdministrativeArea
     extend ActiveSupport::Concern
     include Place
-    include Thing
     include ActiveModel::Validations
     included do
     end

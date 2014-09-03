@@ -6,7 +6,7 @@ module SchemaEntity
   # Module that represents the entity GeoShape
   module GeoShape
     extend ActiveSupport::Concern
-    include Thing
+    include StructuredValue
     include ActiveModel::Validations
     included do
       attr_accessor :box, :circle, :elevation, :line, :polygon

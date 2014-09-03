@@ -4,7 +4,6 @@ module SchemaEntity
   module Quantity
     extend ActiveSupport::Concern
     include Intangible
-    include Thing
     include ActiveModel::Validations
     included do
     end

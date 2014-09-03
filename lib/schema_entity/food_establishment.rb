@@ -7,9 +7,6 @@ module SchemaEntity
   module FoodEstablishment
     extend ActiveSupport::Concern
     include LocalBusiness
-    include Organization
-    include Thing
-    include Place
     include ActiveModel::Validations
     included do
       attr_accessor :accepts_reservations, :menu,

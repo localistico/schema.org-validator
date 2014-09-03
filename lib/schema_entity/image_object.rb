@@ -7,8 +7,6 @@ module SchemaEntity
   module ImageObject
     extend ActiveSupport::Concern
     include MediaObject
-    include CreativeWork
-    include Thing
     include ActiveModel::Validations
     included do
       attr_accessor :caption, :exif_data,

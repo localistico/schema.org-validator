@@ -3,6 +3,7 @@ module SchemaEntity
   # Module that represents the entity MapCategoryType
   module MapCategoryType
     extend ActiveSupport::Concern
+    include Enumeration
     include ActiveModel::Validations
     included do
     end
