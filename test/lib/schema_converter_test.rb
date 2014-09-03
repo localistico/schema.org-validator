@@ -6,7 +6,8 @@ class SchemaConverterTest < ActiveSupport::TestCase
   # LocalBusiness test
   test 'LocalBusiness' do
     parser = SchemaParser.new('test/fixtures/webpage_demo.html')
-    final = SchemaConverter.new(parser.hash)
-    assert_equal final.conversion, 'http://schema.org/LocalBusiness'
+    final = SchemaObject.new(parser.hash)
+    final.valid?
+    assert_equal final.errors.messages, Hash.new
   end
 end

@@ -6,8 +6,19 @@ class NestedValidator < ActiveModel::EachValidator
     if value.nil?
       record.errors[attribute] << 'Cannot be nil'
     else
-      record.errors[attribute] <<
-        value.errors.messages unless value.valid?
+      validation(record, attribute, value)
+    end
+  end
+  # Validates single element or array of Schema's entities
+  def validation(record, attribute, value)
+    if value.is_a?(Array)
+      value.each do |object|
+        record.errors[object] <<
+          object.errors.messages unless object.valid?
+      end
+      else
+        record.errors[attribute] <<
+          value.errors.messages unless value.valid?
     end
   end
 end

@@ -3,9 +3,13 @@
 class TypeValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     return if value.nil? && options[:allow_nil]
-    record.errors[attribute] <<
-      "expected to be #{options[:with_type]}}" unless
-      same_type?(value)
+    values = value
+    values = [values] unless values.is_a?(Array)
+    values.each do |val|
+      record.errors[attribute] <<
+        "expected to be #{options[:with_type]} not #{val.class}}" unless
+        same_type?(val)
+    end
   end
   # Iterates over the array of types for type-checking
   def same_type?(value)
