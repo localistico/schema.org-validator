@@ -3,6 +3,7 @@ module SchemaEntity
   # Module that represents the entity Action
   module Action
     extend ActiveSupport::Concern
+    include Thing
     include ActiveModel::Validations
     included do
     end
