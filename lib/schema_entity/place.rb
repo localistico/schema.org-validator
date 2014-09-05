@@ -15,8 +15,9 @@ module SchemaEntity
                     :opening_hours_specification, :photo, :review, :telephone
       validates_type_of :address, with_type: PostalAddress,
                                   allow_nil: true
-      schema_attr :aggregate_rating, type: {with_type: AggregateRating, allow_nil: true},
-                  nested: { allow_nil:true }
+      schema_attr :aggregate_rating,
+                  type: { with_type: AggregateRating, allow_nil: true },
+                  nested: { allow_nil: true }
       validates_type_of :event, with_type: Event, allow_nil: true
       validates_type_of :fax_number, :global_location_number,
                         :interaction_count, :isic_v4, :telephone,

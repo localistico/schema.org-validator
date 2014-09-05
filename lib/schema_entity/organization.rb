@@ -19,8 +19,9 @@ module SchemaEntity
                     :tax_id, :telephone, :vat_id
       validates_type_of :address,
                         with_type: PostalAddress, allow_nil: true
-      schema_attr :aggregate_rating, type: {with_type: AggregateRating, allow_nil: true},
-                  nested: {allow_nil:true}
+      schema_attr :aggregate_rating,
+                  type: { with_type: AggregateRating, allow_nil: true },
+                  nested: { allow_nil: true }
       validates_type_of :brand,
                         with_type:
                         [Organization, Brand], allow_nil: true

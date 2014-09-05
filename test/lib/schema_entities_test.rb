@@ -9,7 +9,7 @@ class SchemaEntitiesTest < ActiveSupport::TestCase
     duration = DurationEntity.new(value: 'P23DT23H')
     hash = { currencies_accepted: currency,
             opening_hours: duration, payment_accepted: currency,
-            price_range: currency, aco: "jones"}
+            price_range: currency }
     newclass = LocalBusinessEntity.new(hash)
     newclass.valid?
     assert_equal Hash.new, newclass.errors.messages

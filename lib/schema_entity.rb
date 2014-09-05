@@ -3,12 +3,13 @@ require 'failures_validator.rb'
 
 # Module that represents any kind of Entity
 module SchemaEntity
+  # Base class of schema tags entities
   class Base
     include ActiveModel::Validations
     # Add attributes and validations if they aren't defined yet
     def self.schema_attr(*attributes)
-      validators = attributes.reject {|attr| attr.is_a? Symbol}
-      attributes.select {|attr| attr.is_a? Symbol}.each do |att|
+      validators = attributes.reject { |attr| attr.is_a? Symbol }
+      attributes.select { |attr| attr.is_a? Symbol }.each do |att|
         next if instance_methods.include?(att)
         attr_accessor att
         validators.each do |val|

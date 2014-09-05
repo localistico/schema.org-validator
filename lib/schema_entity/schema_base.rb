@@ -1,4 +1,6 @@
+# Encoding: utf-8
 module SchemaEntity
+  # Module that represents the main level of a schema tag
   module SchemaBase
     extend ActiveSupport::Concern
     include ActiveModel::Validations
