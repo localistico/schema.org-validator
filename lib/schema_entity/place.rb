@@ -9,14 +9,14 @@ module SchemaEntity
     include Thing
     include ActiveModel::Validations
     included do
-      attr_accessor :address, :aggregate_rating, :contained_in, :event,
+      attr_accessor :address, :contained_in, :event,
                     :fax_number, :geo, :global_location_number,
                     :has_map, :interaction_count, :isic_v4, :logo,
                     :opening_hours_specification, :photo, :review, :telephone
       validates_type_of :address, with_type: PostalAddress,
                                   allow_nil: true
-      validates_type_of :aggregate_rating, with_type: AggregateRating,
-                                           allow_nil: true
+      schema_attr :aggregate_rating, type: {with_type: AggregateRating, allow_nil: true},
+                  nested: { allow_nil:true }
       validates_type_of :event, with_type: Event, allow_nil: true
       validates_type_of :fax_number, :global_location_number,
                         :interaction_count, :isic_v4, :telephone,
@@ -30,7 +30,7 @@ module SchemaEntity
       validates_type_of :photo, with_type: [ImageObject, Photograph],
                                 allow_nil: true
       validates_type_of :review, with_type: Review, allow_nil: true
-      validates_nested :address, :aggregate_rating, :contained_in, :event,
+      validates_nested :address, :contained_in, :event,
                        :fax_number, :geo, :global_location_number,
                        :has_map, :interaction_count, :isic_v4, :logo,
                        :opening_hours_specification, :photo, :review,

@@ -1,5 +1,5 @@
 # Encoding: utf-8
 # Class that represents the entity CreativeWork
-class CreativeWorkEntity
+class CreativeWorkEntity < SchemaEntity::Base
   include SchemaEntity::CreativeWork
 end

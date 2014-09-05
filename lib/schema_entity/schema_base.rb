@@ -1,11 +1,9 @@
-# Encoding: utf-8
 module SchemaEntity
-  # Module that represents the entity Restaurant
-  module Restaurant
+  module SchemaBase
     extend ActiveSupport::Concern
-    include FoodEstablishment
     include ActiveModel::Validations
     included do
+      schema_attr :failures, failures: {}
     end
   end
 end

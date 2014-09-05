@@ -9,7 +9,7 @@ module SchemaEntity
     include Thing
     include ActiveModel::Validations
     included do
-      attr_accessor :address, :aggregate_rating, :brand,
+      attr_accessor :address, :brand,
                     :contact_point, :department, :dissolution_date,
                     :duns, :email, :employee, :event, :fax_number,
                     :founder, :founding_date, :global_location_number,
@@ -19,8 +19,8 @@ module SchemaEntity
                     :tax_id, :telephone, :vat_id
       validates_type_of :address,
                         with_type: PostalAddress, allow_nil: true
-      validates_type_of :aggregate_rating,
-                        with_type: AggregateRating, allow_nil: true
+      schema_attr :aggregate_rating, type: {with_type: AggregateRating, allow_nil: true},
+                  nested: {allow_nil:true}
       validates_type_of :brand,
                         with_type:
                         [Organization, Brand], allow_nil: true
@@ -59,7 +59,7 @@ module SchemaEntity
                         with_type: Review, allow_nil: true
       validates_type_of :seeks,
                         with_type: Demand, allow_nil: true
-      validates_nested :address, :aggregate_rating, :brand,
+      validates_nested :address, :brand,
                        :contact_point, :department, :dissolution_date,
                        :duns, :email, :employee, :event, :fax_number,
                        :founder, :founding_date, :global_location_number,

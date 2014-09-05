@@ -6,7 +6,7 @@ module SchemaEntity
   # Module that represents the entity Thing
   module Thing
     extend ActiveSupport::Concern
-    include SchemaEntity
+    include SchemaBase
     include ActiveModel::Validations
     included do
       attr_accessor :additional_type, :alternate_name, :description,
