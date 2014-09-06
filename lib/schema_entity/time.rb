@@ -6,7 +6,6 @@ module SchemaEntity
     include DataType
     include ActiveModel::Validations
     included do
-      attr_accessor :value
       # ISO_8601 Time format regex
       validates_format_of :value,
                           with:

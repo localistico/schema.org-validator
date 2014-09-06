@@ -6,8 +6,7 @@ module SchemaEntity
     include SchemaEntity
     include ActiveModel::Validations
     included do
-      attr_accessor :value
-      validates_presence_of :value
+      schema_attr :value, presence: {}
     end
   end
 end

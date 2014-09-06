@@ -9,16 +9,18 @@ module SchemaEntity
     include SchemaBase
     include ActiveModel::Validations
     included do
-      attr_accessor :additional_type, :alternate_name, :description,
-                    :image, :name, :potential_action, :same_as, :url
-      validates_type_of :additional_type, with_type: URL, allow_nil: true
-      validates_type_of :alternate_name, :description, :name, :same_as, :url,
-                        with_type: Text, allow_nil: true
-      validates_type_of :image, with_type: [URL, ImageObject], allow_nil: true
-      validates_type_of :potential_action, with_type: Action, allow_nil: true
-      validates_nested :additional_type, :alternate_name, :description,
-                       :image, :name, :potential_action, :same_as, :url,
-                       allow_nil: true
+      schema_attr :additional_type,
+                  type: { with_type: URL, allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :alternate_name, :description, :name, :same_as, :url,
+                  type: { with_type: Text, allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :image,
+                  type: { with_type: [URL, ImageObject], allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :potential_action,
+                  type: { with_type: Action, allow_nil: true },
+                  nested: { allow_nil: true }
     end
   end
 end

@@ -9,16 +9,15 @@ module SchemaEntity
     include StructuredValue
     include ActiveModel::Validations
     included do
-      attr_accessor :closes, :day_of_week, :opens,
-                    :valid_from, :valid_through
-      validates_type_of :closes, :opens,
-                        with_type: Time, allow_nil: true
-      validates_type_of :day_of_week,
-                        with_type: DayOfWeek, allow_nil: true
-      validates_type_of :valid_from, :valid_through,
-                        with_type: DateTime, allow_nil: true
-      validates_nested :closes, :day_of_week, :opens,
-                       :valid_from, :valid_through, allow_nil: true
+      schema_attr :closes, :opens,
+                  type: { with_type: Time, allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :day_of_week,
+                  type: { with_type: DayOfWeek, allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :valid_from, :valid_through,
+                  type: { with_type: DateTime, allow_nil: true },
+                  nested: { allow_nil: true }
     end
   end
 end

@@ -9,11 +9,9 @@ module SchemaEntity
     include StructuredValue
     include ActiveModel::Validations
     included do
-      attr_accessor :elevation, :latitude, :longitude
-      validates_type_of :elevation, :latitude, :longitude,
-                        with_type: [Text, Number], allow_nil: true
-      validates_nested :elevation, :latitude, :longitude,
-                       allow_nil: true
+      schema_attr :elevation, :latitude, :longitude,
+                  type: { with_type: [Text, Number], allow_nil: true },
+                  nested: { allow_nil: true }
     end
   end
 end

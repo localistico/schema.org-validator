@@ -9,14 +9,13 @@ module SchemaEntity
     include Intangible
     include ActiveModel::Validations
     included do
-      attr_accessor :best_rating, :rating_value, :worst_rating
-      validates_presence_of :rating_value
-      validates_type_of :best_rating, :worst_rating,
-                        with_type: [Text, Number], allow_nil: true
-      validates_type_of :rating_value,
-                        with_type: Text, allow_nil: true
-      validates_nested :best_rating, :rating_value, :worst_rating,
-                       allow_nil: true
+      schema_attr :best_rating, :worst_rating,
+                  type: { with_type: [Text, Number], allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :rating_value,
+                  type: { with_type: Text, allow_nil: true },
+                  nested: { allow_nil: true },
+                  presence: {}
     end
   end
 end

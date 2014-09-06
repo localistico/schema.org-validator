@@ -9,13 +9,12 @@ module SchemaEntity
     include StructuredValue
     include ActiveModel::Validations
     included do
-      attr_accessor :box, :circle, :elevation, :line, :polygon
-      validates_type_of :box, :circle, :line, :polygon,
-                        with_type: Text, allow_nil: true
-      validates_type_of :elevation,
-                        with_type: [Text, Number], allow_nil: true
-      validates_nested :box, :circle, :elevation, :line, :polygon,
-                       allow_nil: true
+      schema_attr :box, :circle, :line, :polygon,
+                  type: { with_type: Text, allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :elevation,
+                  type: { with_type: [Text, Number], allow_nil: true },
+                  nested: { allow_nil: true }
     end
   end
 end

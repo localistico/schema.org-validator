@@ -9,9 +9,9 @@ module SchemaEntity
     include Intangible
     include ActiveModel::Validations
     included do
-      attr_accessor :logo
-      validates_type_of :logo, with_type: [URL, ImageObject], allow_nil: true
-      validates_nested :logo, allow_nil: true
+      schema_attr :logo,
+                  type: { with_type: [URL, ImageObject], allow_nil: true },
+                  nested: { allow_nil: true }
     end
   end
 end

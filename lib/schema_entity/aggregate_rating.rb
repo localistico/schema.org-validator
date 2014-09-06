@@ -9,12 +9,12 @@ module SchemaEntity
     include Rating
     include ActiveModel::Validations
     included do
-      attr_accessor :item_reviewed, :rating_count, :review_count
-      validates_type_of :item_reviewed, with_type: Thing, allow_nil: true
-      validates_type_of :rating_count, :review_count,
-                        with_type: Number, allow_nil: true
-      validates_nested :item_reviewed, :rating_count, :review_count,
-                       allow_nil: true
+      schema_attr :item_reviewed,
+                  type: { with_type: Thing, allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :rating_count, :review_count,
+                  type: { with_type: Number, allow_nil: true },
+                  nested: { allow_nil: true }
     end
   end
 end

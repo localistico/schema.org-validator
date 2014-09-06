@@ -9,15 +9,13 @@ module SchemaEntity
     include ContactPoint
     include ActiveModel::Validations
     included do
-      attr_accessor :address_country, :address_locality, :address_region,
-                    :post_office_box_number, :postal_code, :street_address
-      validates_type_of :address_country, with_type: Country, allow_nil: true
-      validates_type_of :address_locality, :address_region,
-                        :post_office_box_number, :postal_code, :street_address,
-                        with_type: Text, allow_nil: true
-      validates_nested :address_country, :address_locality, :address_region,
-                       :post_office_box_number, :postal_code, :street_address,
-                       allow_nil: true
+      schema_attr :address_country,
+                  type: { with_type: Country, allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :address_locality, :address_region,
+                  :post_office_box_number, :postal_code, :street_address,
+                  type: { with_type: Text, allow_nil: true },
+                  nested: { allow_nil: true }
     end
   end
 end

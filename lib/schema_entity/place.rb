@@ -9,33 +9,40 @@ module SchemaEntity
     include Thing
     include ActiveModel::Validations
     included do
-      attr_accessor :address, :contained_in, :event,
-                    :fax_number, :geo, :global_location_number,
-                    :has_map, :interaction_count, :isic_v4, :logo,
-                    :opening_hours_specification, :photo, :review, :telephone
-      validates_type_of :address, with_type: PostalAddress,
-                                  allow_nil: true
+      schema_attr :address,
+                  type: { with_type: PostalAddress, allow_nil: true },
+                  nested: { allow_nil: true }
       schema_attr :aggregate_rating,
                   type: { with_type: AggregateRating, allow_nil: true },
                   nested: { allow_nil: true }
-      validates_type_of :event, with_type: Event, allow_nil: true
-      validates_type_of :fax_number, :global_location_number,
-                        :interaction_count, :isic_v4, :telephone,
-                        with_type: Text, allow_nil: true
-      validates_type_of :geo, with_type: [GeoShape, GeoCoordinates],
-                              allow_nil: true
-      validates_type_of :has_map, with_type: [URL, Map], allow_nil: true
-      validates_type_of :logo, with_type: [URL, ImageObject], allow_nil: true
-      validates_type_of :opening_hours_specification,
-                        with_type: OpeningHoursSpecification, allow_nil: true
-      validates_type_of :photo, with_type: [ImageObject, Photograph],
-                                allow_nil: true
-      validates_type_of :review, with_type: Review, allow_nil: true
-      validates_nested :address, :contained_in, :event,
-                       :fax_number, :geo, :global_location_number,
-                       :has_map, :interaction_count, :isic_v4, :logo,
-                       :opening_hours_specification, :photo, :review,
-                       :telephone, allow_nil: true
+      schema_attr :event,
+                  type: { with_type: Event, allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :fax_number, :global_location_number,
+                  :interaction_count, :isic_v4, :telephone,
+                  type: { with_type: Text, allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :geo,
+                  type: { with_type: [GeoShape, GeoCoordinates],
+                          allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :has_map,
+                  type: { with_type: [URL, Map], allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :logo,
+                  type: { with_type: [URL, ImageObject], allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :opening_hours_specification,
+                  type: { with_type: OpeningHoursSpecification,
+                          allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :photo,
+                  type: { with_type: [ImageObject, Photograph],
+                          allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :review,
+                  type: { with_type: Review, allow_nil: true },
+                  nested: { allow_nil: true }
     end
   end
 end

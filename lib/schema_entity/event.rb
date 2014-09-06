@@ -9,31 +9,36 @@ module SchemaEntity
     include Thing
     include ActiveModel::Validations
     included do
-      attr_accessor :attendee, :door_time, :duration, :end_date,
-                    :event_status, :location, :offers, :organizer, :performer,
-                    :previous_start_date, :start_date, :sub_event, :super_event,
-                    :typical_age_range, :work_performed
-      validates_type_of :attendee, :organizer, :performer,
-                        with_type: [Person, Organization], allow_nil: true
-      validates_type_of :door_time, with_type: DateTime, allow_nil: true
-      validates_type_of :duration, with_type: Duration, allow_nil: true
-      validates_type_of :end_date, :previous_start_date, :start_date,
-                        with_type: Date, allow_nil: true
-      validates_type_of :event_status,
-                        with_type: EventStatusType, allow_nil: true
-      validates_type_of :location,
-                        with_type: [PostalAddress, Place], allow_nil: true
-      validates_type_of :offers, with_type: Offer, allow_nil: true
-      validates_type_of :sub_event, :super_event,
-                        with_type: Event, allow_nil: true
-      validates_type_of :typical_age_range, with_type: Text, allow_nil: true
-      validates_type_of :work_Performed,
-                        with_type: CreativeWork, allow_nil: true
-      validates_nested :attendee, :door_time, :duration, :end_date,
-                       :event_status, :location, :offers, :organizer,
-                       :performer, :previous_start_date, :start_date,
-                       :sub_event, :super_event,
-                       :typical_age_range, :work_performed, allow_nil: true
+      schema_attr :attendee, :organizer, :performer,
+                  type: { with_type: [Person, Organization], allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :door_time,
+                  type: { with_type: DateTime, allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :duration,
+                  type: { with_type: Duration, allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :end_date, :previous_start_date, :start_date,
+                  type: { with_type: Date, allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :event_status,
+                  type: { with_type: EventStatusType, allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :location,
+                  type: { with_type: [PostalAddress, Place], allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :offers,
+                  type: { with_type: Offer, allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :sub_event, :super_event,
+                  type: { with_type: Event, allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :typical_age_range,
+                  type: { with_type: Text, allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :work_Performed,
+                  type: { with_type: CreativeWork, allow_nil: true },
+                  nested: { allow_nil: true }
     end
   end
 end

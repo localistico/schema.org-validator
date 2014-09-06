@@ -9,26 +9,25 @@ module SchemaEntity
     include StructuredValue
     include ActiveModel::Validations
     included do
-      attr_accessor :area_served, :available_language,
-                    :contact_option, :contact_type, :email,
-                    :fax_number, :hours_available,
-                    :product_supported, :telephone
-      validates_type_of :area_served,
-                        with_type: AdministrativeArea, allow_nil: true
-      validates_type_of :available_language,
-                        with_type: Language, allow_nil: true
-      validates_type_of :contact_option,
-                        with_type: ContactPointOption, allow_nil: true
-      validates_type_of :contact_type, :email, :fax_number, :telephone,
-                        with_type: Text, allow_nil: true
-      validates_type_of :hours_available,
-                        with_type: OpeningHoursSpecification, allow_nil: true
-      validates_type_of :product_supported,
-                        with_type: [Product, Text], allow_nil: true
-      validates_nested :area_served, :available_language,
-                       :contact_option, :contact_type, :email,
-                       :fax_number, :hours_available,
-                       :product_supported, :telephone, allow_nil: true
+      schema_attr :area_served,
+                  type: { with_type: AdministrativeArea, allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :available_language,
+                  type: { with_type: Language, allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :contact_option,
+                  type: { with_type: ContactPointOption, allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :contact_type, :email, :fax_number, :telephone,
+                  type: { with_type: Text, allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :hours_available,
+                  type: { with_type: OpeningHoursSpecification,
+                          allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :product_supported,
+                  type: { with_type: [Product, Text], allow_nil: true },
+                  nested: { allow_nil: true }
     end
   end
 end

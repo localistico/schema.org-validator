@@ -9,16 +9,15 @@ module SchemaEntity
     include LocalBusiness
     include ActiveModel::Validations
     included do
-      attr_accessor :accepts_reservations, :menu,
-                    :serves_cuisine
-      validates_type_of :accepts_reservations,
-                        with_type: [Boolean, URL, Text], allow_nil: true
-      validates_type_of :menu,
-                        with_type: [URL, Text], allow_nil: true
-      validates_type_of :serves_cuisine,
-                        with_type: Text, allow_nil: true
-      validates_nested :accepts_reservations, :menu,
-                       :serves_cuisine, allow_nil: true
+      schema_attr :accepts_reservations,
+                  type: { with_type: [Boolean, URL, Text], allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :menu,
+                  type: { with_type: [URL, Text], allow_nil: true },
+                  nested: { allow_nil: true }
+      schema_attr :serves_cuisine,
+                  type: { with_type: Text, allow_nil: true },
+                  nested: { allow_nil: true }
     end
   end
 end

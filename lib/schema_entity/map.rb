@@ -9,10 +9,9 @@ module SchemaEntity
     include CreativeWork
     include ActiveModel::Validations
     included do
-      attr_accessor :map_type
-      validates_type_of :map_type,
-                        with_type: MapCategoryType, allow_nil: true
-      validates_nested :map_type, allow_nil: true
+      schema_attr :map_type,
+                  type: { with_type: MapCategoryType, allow_nil: true },
+                  nested: { allow_nil: true }
     end
   end
 end

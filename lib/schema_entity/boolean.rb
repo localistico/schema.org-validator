@@ -6,8 +6,8 @@ module SchemaEntity
     include DataType
     include ActiveModel::Validations
     included do
-      validates_type_of :value,
-                        :with_type [TrueClass, FalseClass], allow_nil: true
+      schema_attr :value,
+                  type: { with_type: [TrueClass, FalseClass], allow_nil: true }
     end
   end
 end
