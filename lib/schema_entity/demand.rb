@@ -3,6 +3,7 @@ module SchemaEntity
   # Module that represents the entity Demand
   module Demand
     extend ActiveSupport::Concern
+    include Thing
     include ActiveModel::Validations
     included do
     end
