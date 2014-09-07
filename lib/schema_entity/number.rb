@@ -8,6 +8,7 @@ module SchemaEntity
     include DataType
     include ActiveModel::Validations
     included do
+      attr_accessor :value
       validates_type_of :value, with_type: Numeric, allow_nil: true
     end
   end
