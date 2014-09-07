@@ -7,7 +7,7 @@ module SchemaEntity
     include ActiveModel::Validations
     included do
       validates :value,
-                type: { with_type: [TrueClass, FalseClass], allow_nil: true }
+                type: { with_type: [TrueClass, FalseClass] }
     end
   end
 end

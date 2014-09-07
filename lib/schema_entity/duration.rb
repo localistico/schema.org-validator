@@ -6,7 +6,6 @@ module SchemaEntity
     include Quantity
     include ActiveModel::Validations
     included do
-      attr_accessor :value
       # ISO_8601 Durations regex
       validates_format_of :value,
                           with:

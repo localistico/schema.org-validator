@@ -6,6 +6,7 @@ module SchemaEntity
     include Thing
     include ActiveModel::Validations
     included do
+      validates :value, presence: true
     end
   end
 end
