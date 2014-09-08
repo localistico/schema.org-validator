@@ -9,12 +9,11 @@ module SchemaEntity
       attr_accessor :value
       validates_format_of :value,
                           with:
-                          /\A(?x)^http:\/\/purl.org\/
-                          goodrelations\/v1#
+                          /\A(?x)^http:\/{2}purl.org
+                          \/goodrelations\/v1\#
                           (Monday|Tuesday|Wednesday
                           |Thursday|Friday|Saturday
-                          |Sunday|PublicHolidays)
-                          \Z/i
+                          |Sunday|PublicHolidays)$\Z/i
     end
   end
 end
