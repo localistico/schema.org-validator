@@ -5,6 +5,7 @@ module SchemaEntity
     extend ActiveSupport::Concern
     include Thing
     include ActiveModel::Validations
+    attr_accessor :value
     included do
       validates :value, presence: true
     end

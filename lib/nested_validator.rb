@@ -13,7 +13,7 @@ class NestedValidator < ActiveModel::EachValidator
   def validation(record, attribute, value)
     if value.is_a?(Array)
       value.each do |object|
-        record.errors[object] <<
+        record.errors[object.to_s] <<
           object.errors.messages unless object.valid?
       end
       else
