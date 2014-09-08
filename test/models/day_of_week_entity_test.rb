@@ -3,11 +3,9 @@ require 'test_helper'
 
 # DayOfWeekEntity Test
 class DayOfWeekEntityTest < ActiveSupport::TestCase
-  # DayOfWeekEntity test
-  test 'day_of_week' do
-  	text = TextEntity.new(value: 'bussiness')
-    hash = { alternate_name: text}
-    newclass = DayOfWeekEntity.new(hash)
+  # DayOfWeekEntity test (monday)
+  test 'day_of_week_monday' do
+    newclass = DayOfWeekEntity.new(value: 'http://purl.org/goodrelations/v1#Monday')
     newclass.valid?
     assert_equal Hash.new, newclass.errors.messages
   end

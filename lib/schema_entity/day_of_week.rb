@@ -6,6 +6,19 @@ module SchemaEntity
     include Thing
     include ActiveModel::Validations
     included do
+      attr_accessor :value
+      validates_format_of :value,
+                          with:
+                          /\A(?x)^http:\/\/purl.org\/
+                          goodrelations\/v1#
+                          (Monday|Tuesday|Wednesday
+                          |Thursday|Friday|Saturday
+                          |Sunday|PublicHolidays)
+                          \Z/i
     end
   end
 end
+#(((((((Monday|Tuesday)
+#                          |Wednesday)|Thursday)
+#                          |Friday)|Saturday)
+#                          |Sunday)|PublicHolidays))
