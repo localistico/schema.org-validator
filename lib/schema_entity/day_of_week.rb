@@ -18,7 +18,3 @@ module SchemaEntity
     end
   end
 end
-#(((((((Monday|Tuesday)
-#                          |Wednesday)|Thursday)
-#                          |Friday)|Saturday)
-#                          |Sunday)|PublicHolidays))

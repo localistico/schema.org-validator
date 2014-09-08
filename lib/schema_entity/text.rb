@@ -8,7 +8,7 @@ module SchemaEntity
     include DataType
     include ActiveModel::Validations
     included do
-      validates_type_of :value, with_type: String, allow_nil: true
+      validates_type_of :value, with_type: String
     end
   end
 end

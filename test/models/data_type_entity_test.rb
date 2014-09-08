@@ -17,7 +17,7 @@ class DataTypeEntityTest < ActiveSupport::TestCase
   end
   # DataTypeEntity test (empty)
   test 'data_type_empty' do
-    newclass = DataTypeEntity.new()
+    newclass = DataTypeEntity.new
     newclass.valid?
     assert_equal Hash.new, newclass.errors.messages
   end
