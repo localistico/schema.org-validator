@@ -8,7 +8,7 @@ module SchemaEntity
     include DataType
     include ActiveModel::Validations
     included do
-      validates_type_of :value, with_type: Numeric
+      validates_format_of :value, with: /\A^\d+$\Z/i
     end
   end
 end

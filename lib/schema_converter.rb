@@ -54,7 +54,6 @@ module SchemaConverter
   def analyse_direct_data(data, tagname)
     tag = tagname.underscore.to_sym
     return BooleanEntity.new(value: data) if boolean?(data)
-    return NumberEntity.new(value: data) if number?(data)
     val = check_tag_name(tag)
     return Kernel.const_get("#{val}Entity").new(value: data) if val
     TextEntity.new(value: data)
@@ -66,6 +65,7 @@ module SchemaConverter
     .merge!(SchemaEntity::SchemaNames.dates)
     .merge!(SchemaEntity::SchemaNames.durations)
     .merge!(SchemaEntity::SchemaNames.times)
+    .merge!(SchemaEntity::SchemaNames.numbers)
     .merge!(SchemaEntity::SchemaNames.urls).each do |key, value|
       return key if value.include?(data)
     end

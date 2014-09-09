@@ -53,5 +53,29 @@ module SchemaEntity
                   :same_as, :screenshot, :service_url, :significant_link,
                   :storage_requirements, :target_url, :thumbnail_url] }
     end
+    # Names for Number
+    def self.numbers_one
+      { 'Number' => [:amount_of_this_good, :base_salary, :best_rating,
+                     :billing_increment, :child_max_age, :child_min_age,
+                     :cost_per_unit, :discount, :dose_value, :elevation,
+                     :high_price, :latitude, :longitude, :low_price, :max_price,
+                     :max_value, :min_price, :min_value, :num_adults, :price,
+                     :number_of_episodes, :number_of_seasons, :party_size,
+                     :ratin_count, :repetitions, :review_count, :worst_rating,
+                     :step_value, :strength_value, :suggested_max_age,
+                     :to_location, :total_price, :value, :value_max_length,
+                     :value_min_length, :value_pattern, :version] }
+    end
+    # Names for Number
+    def self.numbers_two
+      { 'Number' => [:copyright_year, :from_location, :num_children,
+                     :stage_as_number, :suggested_min_age] }
+    end
+    # Names for Number
+    def self.numbers
+      hash = numbers_one
+      hash['Number'] << numbers_two['Number']
+      hash
+    end
   end
 end
