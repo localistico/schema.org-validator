@@ -1,3 +1,4 @@
+# Encoding: utf-8
 # Base controller
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
